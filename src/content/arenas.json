@@ -1,11 +1,36 @@
 {
   "arenas": [
-    { "id": 1, "trophies": 0 },
-    { "id": 2, "trophies": 300 },
-    { "id": 3, "trophies": 600 },
-    { "id": 4, "trophies": 1000 },
-    { "id": 5, "trophies": 1500 }
+    {
+      "id": 1,
+      "trophies": 0
+    },
+    {
+      "id": 2,
+      "trophies": 150
+    },
+    {
+      "id": 3,
+      "trophies": 600
+    },
+    {
+      "id": 4,
+      "trophies": 1000
+    },
+    {
+      "id": 5,
+      "trophies": 1500
+    }
   ],
-  "trophies": { "win": 30, "loss": 25, "spread": 5, "per": 50 },
-  "gold": { "winBase": 20, "winPerArena": 5, "loss": 5, "draw": 5 }
+  "trophies": {
+    "win": 30,
+    "loss": 18,
+    "spread": 5,
+    "per": 50
+  },
+  "gold": {
+    "winBase": 20,
+    "winPerArena": 5,
+    "loss": 5,
+    "draw": 5
+  }
 }

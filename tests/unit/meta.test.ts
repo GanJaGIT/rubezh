@@ -146,27 +146,27 @@ describe('T-18: chests (CHS-01…CHS-04)', () => {
 });
 
 describe('T-19: trophies and arenas (ARN-01…ARN-03)', () => {
-  it('a win 30, a loss 25, ±1 per 50 of difference, at most ±5; a draw 0', () => {
+  it('a win 30, a loss 18 (owner, 2026-10-28), ±1 per 50 of difference, at most ±5; a draw 0', () => {
     expect(trophyDelta('win', 100, 100)).toBe(30);
     expect(trophyDelta('win', 100, 260)).toBe(33);
     expect(trophyDelta('win', 100, 900)).toBe(35);
     expect(trophyDelta('win', 400, 100)).toBe(25);
-    expect(trophyDelta('loss', 100, 100)).toBe(-25);
-    expect(trophyDelta('loss', 100, 260)).toBe(-22);
-    expect(trophyDelta('loss', 100, 900)).toBe(-20);
-    expect(trophyDelta('loss', 900, 100)).toBe(-30);
+    expect(trophyDelta('loss', 100, 100)).toBe(-18);
+    expect(trophyDelta('loss', 100, 260)).toBe(-15);
+    expect(trophyDelta('loss', 100, 900)).toBe(-13);
+    expect(trophyDelta('loss', 900, 100)).toBe(-23);
     expect(trophyDelta('draw', 0, 500)).toBe(0);
   });
 
   it('the arena opens at its threshold; trophies never fall below the arena reached', () => {
-    expect([0, 299, 300, 600, 1000, 1499, 1500].map(arenaFor)).toEqual([1, 1, 2, 3, 4, 4, 5]);
-    const p = { trophies: 290, bestTrophies: 290, arena: 1 };
+    expect([0, 149, 150, 600, 1000, 1499, 1500].map(arenaFor)).toEqual([1, 1, 2, 3, 4, 4, 5]);
+    const p = { trophies: 140, bestTrophies: 140, arena: 1 };
     expect(applyTrophies(p, 30)).toBe(2);
-    expect(p).toEqual({ trophies: 320, bestTrophies: 320, arena: 2 });
+    expect(p).toEqual({ trophies: 170, bestTrophies: 170, arena: 2 });
     expect(applyTrophies(p, -25)).toBeNull();
-    expect(p).toEqual({ trophies: 300, bestTrophies: 320, arena: 2 });
+    expect(p).toEqual({ trophies: 150, bestTrophies: 170, arena: 2 });
     const low = { trophies: 10, bestTrophies: 10, arena: 1 };
-    applyTrophies(low, -25);
+    applyTrophies(low, -18);
     expect(low.trophies).toBe(0);
   });
 

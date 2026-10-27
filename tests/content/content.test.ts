@@ -88,7 +88,7 @@ describe('content (§3.12)', () => {
 
   it('ARN-03: arenas open the cards of their arena; thresholds grow', () => {
     const a = json('arenas.json') as { arenas: { id: number; trophies: number }[] };
-    expect(a.arenas.map((x) => x.trophies)).toEqual([0, 300, 600, 1000, 1500]);
+    expect(a.arenas.map((x) => x.trophies)).toEqual([0, 150, 600, 1000, 1500]);
     for (const x of a.arenas) expect(CARD_IDS.some((c) => CARDS[c].arena === x.id)).toBe(true);
   });
 

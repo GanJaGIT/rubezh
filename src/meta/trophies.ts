@@ -9,8 +9,9 @@ export type Outcome = 'win' | 'loss' | 'draw';
 const T = arenas.trophies;
 
 /**
- * ARN-01: a win gives 30, a loss takes 25, ±1 for every 50 trophies of difference (in the
- * opponent's favour — more for a win, less lost), at most ±5: wins 25–35, losses 20–30.
+ * ARN-01: a win gives 30, a loss takes 18 (arenas.json; the TZ had 25 — PROGRESS.md), ±1 for
+ * every 50 trophies of difference (in the opponent's favour — more for a win, less lost), at
+ * most ±5: wins 25–35, losses 13–23.
  */
 export function trophyDelta(outcome: Outcome, mine: number, theirs: number): number {
   if (outcome === 'draw') return 0;
