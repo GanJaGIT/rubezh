@@ -1,14 +1,6 @@
-[
-  { "id": "gems_80", "permanent": false, "once": false, "noAds": false, "gems": 80, "gold": 0 },
-  { "id": "gems_500", "permanent": false, "once": false, "noAds": false, "gems": 500, "gold": 0 },
-  { "id": "gems_1200", "permanent": false, "once": false, "noAds": false, "gems": 1200, "gold": 0 },
-  {
-    "id": "starter_pack",
-    "permanent": false,
-    "once": true,
-    "noAds": false,
-    "gems": 250,
-    "gold": 2000
-  },
-  { "id": "no_ads", "permanent": true, "once": false, "noAds": true, "gems": 0, "gold": 0 }
-]
+{
+  "offers": 6,
+  "pricePerCopy": { "common": 10, "rare": 100, "epic": 1000 },
+  "copies": { "common": 10, "rare": 2, "epic": 1 },
+  "freeOffers": 1
+}

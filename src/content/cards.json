@@ -1,0 +1,254 @@
+[
+  {
+    "id": "wall",
+    "cost": 1,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 550,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": []
+  },
+  {
+    "id": "watch",
+    "cost": 2,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 250,
+    "dmg": 25,
+    "cooldown": 1,
+    "range": 2.5,
+    "minRange": 0,
+    "effects": []
+  },
+  {
+    "id": "banner",
+    "cost": 2,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 300,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "buffDamage",
+        "value": 0.25
+      }
+    ]
+  },
+  {
+    "id": "repair",
+    "cost": 2,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 0,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [],
+    "spell": {
+      "area": [3, 3],
+      "anchor": "center",
+      "heal": 220
+    }
+  },
+  {
+    "id": "archers",
+    "cost": 3,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 350,
+    "dmg": 34,
+    "cooldown": 0.7,
+    "range": 3.5,
+    "minRange": 0,
+    "effects": []
+  },
+  {
+    "id": "cannon",
+    "cost": 4,
+    "rarity": "common",
+    "arena": 1,
+    "hp": 500,
+    "dmg": 90,
+    "cooldown": 1.2,
+    "range": 2.5,
+    "minRange": 0,
+    "effects": []
+  },
+  {
+    "id": "workshop",
+    "cost": 3,
+    "rarity": "rare",
+    "arena": 1,
+    "hp": 350,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "elixir",
+        "everySec": 12
+      }
+    ]
+  },
+  {
+    "id": "fireball",
+    "cost": 4,
+    "rarity": "rare",
+    "arena": 1,
+    "hp": 0,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [],
+    "spell": {
+      "area": [2, 2],
+      "anchor": "corner",
+      "dmg": 300,
+      "towerDmg": 105
+    }
+  },
+  {
+    "id": "outpost",
+    "cost": 1,
+    "rarity": "rare",
+    "arena": 2,
+    "hp": 300,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "zone",
+        "radius": 2
+      }
+    ]
+  },
+  {
+    "id": "healer",
+    "cost": 3,
+    "rarity": "rare",
+    "arena": 2,
+    "hp": 300,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "heal",
+        "perSecond": 14
+      }
+    ]
+  },
+  {
+    "id": "mortar",
+    "cost": 5,
+    "rarity": "rare",
+    "arena": 3,
+    "hp": 400,
+    "dmg": 120,
+    "cooldown": 3,
+    "range": 4.5,
+    "minRange": 2,
+    "effects": [
+      {
+        "type": "splash",
+        "ratio": 0.5
+      }
+    ]
+  },
+  {
+    "id": "ballista",
+    "cost": 5,
+    "rarity": "rare",
+    "arena": 3,
+    "hp": 400,
+    "dmg": 110,
+    "cooldown": 2.4,
+    "range": 5,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "line",
+        "length": 5
+      }
+    ]
+  },
+  {
+    "id": "ice",
+    "cost": 3,
+    "rarity": "epic",
+    "arena": 4,
+    "hp": 450,
+    "dmg": 20,
+    "cooldown": 1,
+    "range": 3,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "slow",
+        "ratio": 0.4,
+        "sec": 2
+      }
+    ]
+  },
+  {
+    "id": "quake",
+    "cost": 2,
+    "rarity": "epic",
+    "arena": 4,
+    "hp": 0,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [],
+    "spell": {
+      "area": [3, 3],
+      "anchor": "center",
+      "dmg": 80,
+      "towerDmg": 40,
+      "heavyDmg": 250,
+      "heavyKinds": ["wall", "outpost"]
+    }
+  },
+  {
+    "id": "dome",
+    "cost": 4,
+    "rarity": "epic",
+    "arena": 5,
+    "hp": 450,
+    "dmg": 0,
+    "cooldown": 0,
+    "range": 0,
+    "minRange": 0,
+    "effects": [
+      {
+        "type": "reduceDamage",
+        "value": 0.4
+      }
+    ]
+  },
+  {
+    "id": "catapult",
+    "cost": 7,
+    "rarity": "epic",
+    "arena": 5,
+    "hp": 450,
+    "dmg": 180,
+    "cooldown": 5,
+    "range": 6,
+    "minRange": 3,
+    "effects": []
+  }
+]

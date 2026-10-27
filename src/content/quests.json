@@ -1,0 +1,13 @@
+{
+  "perDay": 3,
+  "pool": [
+    { "id": "win2", "kind": "wins", "target": 2, "gold": 40, "gems": 0 },
+    { "id": "win4", "kind": "wins", "target": 4, "gold": 60, "gems": 0 },
+    { "id": "stack5", "kind": "stacks", "target": 5, "gold": 40, "gems": 0 },
+    { "id": "enemyHalf", "kind": "enemyHalf", "target": 1, "gold": 30, "gems": 0 },
+    { "id": "towers3", "kind": "towers", "target": 3, "gold": 0, "gems": 5 },
+    { "id": "expensive10", "kind": "expensive", "target": 10, "gold": 50, "gems": 0 },
+    { "id": "battles3", "kind": "battles", "target": 3, "gold": 30, "gems": 0 },
+    { "id": "crowns6", "kind": "crowns", "target": 6, "gold": 0, "gems": 5 }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "1": [
+    ["wall", "watch", "banner", "repair", "archers", "cannon", "workshop", "fireball"],
+    ["wall", "watch", "banner", "repair", "archers", "cannon", "workshop", "fireball"],
+    ["wall", "watch", "banner", "repair", "archers", "cannon", "workshop", "fireball"],
+    ["wall", "watch", "banner", "repair", "archers", "cannon", "workshop", "fireball"]
+  ],
+  "2": [
+    ["wall", "watch", "banner", "archers", "cannon", "outpost", "healer", "fireball"],
+    ["wall", "watch", "repair", "archers", "cannon", "workshop", "outpost", "fireball"],
+    ["wall", "banner", "archers", "cannon", "workshop", "healer", "repair", "fireball"],
+    ["watch", "banner", "archers", "cannon", "outpost", "healer", "workshop", "repair"]
+  ],
+  "3": [
+    ["wall", "watch", "archers", "cannon", "outpost", "mortar", "workshop", "fireball"],
+    ["wall", "banner", "archers", "ballista", "healer", "cannon", "outpost", "repair"],
+    ["wall", "watch", "cannon", "mortar", "ballista", "workshop", "fireball", "outpost"],
+    ["watch", "banner", "archers", "healer", "mortar", "cannon", "repair", "wall"]
+  ],
+  "4": [
+    ["wall", "watch", "archers", "cannon", "ice", "quake", "outpost", "fireball"],
+    ["wall", "banner", "archers", "mortar", "ice", "healer", "workshop", "quake"],
+    ["wall", "watch", "cannon", "ballista", "ice", "outpost", "repair", "fireball"],
+    ["watch", "banner", "archers", "mortar", "quake", "cannon", "workshop", "outpost"]
+  ],
+  "5": [
+    ["wall", "watch", "archers", "cannon", "dome", "catapult", "workshop", "fireball"],
+    ["wall", "banner", "archers", "mortar", "ice", "dome", "healer", "quake"],
+    ["wall", "outpost", "cannon", "ballista", "catapult", "workshop", "repair", "archers"],
+    ["watch", "banner", "archers", "ice", "dome", "cannon", "outpost", "fireball"]
+  ]
+}

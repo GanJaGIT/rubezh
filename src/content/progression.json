@@ -1,0 +1,16 @@
+{
+  "cardLevelPercent": 110,
+  "maxCardLevel": 9,
+  "upgrade": [
+    { "to": 2, "copies": 2, "gold": 5, "xp": 4 },
+    { "to": 3, "copies": 4, "gold": 20, "xp": 5 },
+    { "to": 4, "copies": 10, "gold": 50, "xp": 6 },
+    { "to": 5, "copies": 20, "gold": 150, "xp": 10 },
+    { "to": 6, "copies": 50, "gold": 400, "xp": 25 },
+    { "to": 7, "copies": 100, "gold": 1000, "xp": 50 },
+    { "to": 8, "copies": 200, "gold": 2000, "xp": 100 },
+    { "to": 9, "copies": 400, "gold": 4000, "xp": 200 }
+  ],
+  "playerXp": [20, 50, 100, 200, 400, 800, 1500, 3000],
+  "startLevel": { "common": 1, "rare": 3, "epic": 6 }
+}

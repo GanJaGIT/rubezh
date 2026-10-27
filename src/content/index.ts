@@ -6,10 +6,10 @@
 
 import type { ShopProductDef } from '../services/shop';
 import type { CardId } from '../sim/types';
-import shop from './shop.json';
+import products from './products.json';
 import starterDeck from './starter-deck.json';
 
-export const shopProducts: readonly ShopProductDef[] = shop;
+export const shopProducts: readonly ShopProductDef[] = products;
 
 /** CRD-01: the starting deck — the 8 cards of arena 1, level 1. */
 export const STARTER_DECK: readonly CardId[] = starterDeck as CardId[];

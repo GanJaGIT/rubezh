@@ -226,7 +226,12 @@ describe('SaveService (YG-07, YG-08)', () => {
     // A broken active deck falls back to the starter deck, which is always playable.
     expect(d?.decks[0]).toEqual(STARTER_DECK);
     expect(d?.activeDeck).toBe(0);
-    expect(d?.chests).toEqual([{ type: 'gold', unlockStartedAt: null }, null, null, null]);
+    expect(d?.chests).toEqual([
+      { type: 'gold', unlockStartedAt: null, adSkips: 0 },
+      null,
+      null,
+      null,
+    ]);
     expect(d?.seen).toEqual(['a']);
   });
 
@@ -278,6 +283,7 @@ describe('SaveService (YG-07, YG-08)', () => {
     d.chests = [0, 1, 2, 3].map(() => ({
       type: 'silver' as const,
       unlockStartedAt: 1_800_000_000_000,
+      adSkips: 3,
     }));
     d.chestCycle.order = Array.from({ length: 20 }, () => 'silver' as const);
     d.quests.items = [0, 1, 2].map((i) => ({

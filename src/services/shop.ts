@@ -3,7 +3,7 @@
  * consumed: its effect follows the platform at every launch, its gift comes once. A consumable
  * is granted, saved to the cloud at once, then consumed — a lost connection never loses a
  * purchase. At every launch the platform's purchases the game has not applied are applied
- * (requirement 1.13.1). What each product gives lives in src/content/shop.json; the title,
+ * (requirement 1.13.1). What each product gives lives in src/content/products.json; the title,
  * description and price come from the console through the SDK.
  */
 

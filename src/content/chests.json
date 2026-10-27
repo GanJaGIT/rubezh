@@ -1,0 +1,19 @@
+{
+  "types": {
+    "wood": { "openSec": 10800, "gold": 30, "cards": 4, "rare": 0.12, "epic": 0.01 },
+    "silver": { "openSec": 28800, "gold": 80, "cards": 12, "rare": 0.15, "epic": 0.02 },
+    "gold": { "openSec": 43200, "gold": 200, "cards": 30, "rare": 0.18, "epic": 0.04 },
+    "free": { "openSec": 0, "gold": 20, "cards": 3, "rare": 0.12, "epic": 0.01 },
+    "crown": { "openSec": 0, "gold": 100, "cards": 15, "rare": 0.15, "epic": 0.02 }
+  },
+  "cycle": { "wood": 14, "silver": 5, "gold": 1 },
+  "slots": 4,
+  "arenaBonus": 0.25,
+  "maxKinds": 4,
+  "freeEverySec": 14400,
+  "freeMaxStored": 2,
+  "crownsForChest": 10,
+  "gemPerMinutes": 10,
+  "adSkipSec": 3600,
+  "adSkipsPerChest": 3
+}

@@ -1,6 +1,6 @@
 /**
- * QA-05: npm run verify = typecheck + lint + unit + content + draft + build + zip + check:build +
- * spike + e2e. The slow tournaments (BAL) live in npm run balance. Nothing is "done" until it is green.
+ * QA-05: npm run verify = typecheck + lint + unit + content + short tournament + draft + build +
+ * zip + check:build + spike + e2e. The slow tournaments (BAL) live in npm run balance. Nothing is "done" until it is green.
  * Steps run in order and stop at the first failure; a summary is printed at the end.
  */
 import { spawnSync } from 'node:child_process';
@@ -11,6 +11,8 @@ const steps: [string, string][] = [
   ['unit', 'npm run test:unit'],
   // QA-02: the content JSON is complete and consistent.
   ['content', 'npm run test:content'],
+  // QA-05: a short tournament of 100 battles — no crashes, no invalid bot actions, invariants.
+  ['balance', 'npm run balance -- --quick'],
   // §9: the store texts in docs/store.json stay within the limits and equal the game title.
   ['draft', 'npm run draft'],
   ['build', 'npm run build'],

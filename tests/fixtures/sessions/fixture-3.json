@@ -1,0 +1,386 @@
+{
+  "id": "fixture-3",
+  "meta": {
+    "meta1": 300,
+    "meta2": 1,
+    "meta3": 4
+  },
+  "player": {
+    "name": "Fixture 3",
+    "avatar": ""
+  },
+  "timeline": [
+    {
+      "id": "1",
+      "payload": {
+        "k": "h",
+        "v": 1,
+        "deck": [
+          "ballista",
+          "cannon",
+          "fireball",
+          "archers",
+          "mortar",
+          "workshop",
+          "outpost",
+          "watch"
+        ],
+        "lv": [1, 1, 1, 1, 1, 1, 1, 1],
+        "pl": 1,
+        "ar": 1,
+        "seed": 503
+      },
+      "time": 0
+    },
+    {
+      "id": "2",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 2,
+        "y": 9
+      },
+      "time": 0
+    },
+    {
+      "id": "3",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 7
+      },
+      "time": 700
+    },
+    {
+      "id": "4",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 2800
+    },
+    {
+      "id": "5",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 4
+      },
+      "time": 13300
+    },
+    {
+      "id": "6",
+      "payload": {
+        "k": "p",
+        "c": "mortar",
+        "x": 3,
+        "y": 4
+      },
+      "time": 22400
+    },
+    {
+      "id": "7",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 0,
+        "y": 2
+      },
+      "time": 30800
+    },
+    {
+      "id": "8",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 4
+      },
+      "time": 36400
+    },
+    {
+      "id": "9",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 37100
+    },
+    {
+      "id": "10",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 4
+      },
+      "time": 44800
+    },
+    {
+      "id": "11",
+      "payload": {
+        "k": "p",
+        "c": "cannon",
+        "x": 0,
+        "y": 4
+      },
+      "time": 53900
+    },
+    {
+      "id": "12",
+      "payload": {
+        "k": "p",
+        "c": "mortar",
+        "x": 3,
+        "y": 4
+      },
+      "time": 64400
+    },
+    {
+      "id": "13",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 4
+      },
+      "time": 70700
+    },
+    {
+      "id": "14",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 72100
+    },
+    {
+      "id": "15",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 4
+      },
+      "time": 78400
+    },
+    {
+      "id": "16",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 0,
+        "y": 2
+      },
+      "time": 86800
+    },
+    {
+      "id": "17",
+      "payload": {
+        "k": "p",
+        "c": "mortar",
+        "x": 3,
+        "y": 4
+      },
+      "time": 98000
+    },
+    {
+      "id": "18",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 4
+      },
+      "time": 103600
+    },
+    {
+      "id": "19",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 3,
+        "y": 6
+      },
+      "time": 106400
+    },
+    {
+      "id": "20",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 4
+      },
+      "time": 112000
+    },
+    {
+      "id": "21",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 0,
+        "y": 2
+      },
+      "time": 120400
+    },
+    {
+      "id": "22",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 2,
+        "y": 9
+      },
+      "time": 124600
+    },
+    {
+      "id": "23",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 4
+      },
+      "time": 127400
+    },
+    {
+      "id": "24",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 3,
+        "y": 6
+      },
+      "time": 128800
+    },
+    {
+      "id": "25",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 4
+      },
+      "time": 132300
+    },
+    {
+      "id": "26",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 0,
+        "y": 2
+      },
+      "time": 137200
+    },
+    {
+      "id": "27",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 2,
+        "y": 9
+      },
+      "time": 141400
+    },
+    {
+      "id": "28",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 8
+      },
+      "time": 144200
+    },
+    {
+      "id": "29",
+      "payload": {
+        "k": "p",
+        "c": "cannon",
+        "x": 1,
+        "y": 8
+      },
+      "time": 148400
+    },
+    {
+      "id": "30",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 8
+      },
+      "time": 152600
+    },
+    {
+      "id": "31",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 2,
+        "y": 7
+      },
+      "time": 156800
+    },
+    {
+      "id": "32",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 6,
+        "y": 9
+      },
+      "time": 161000
+    },
+    {
+      "id": "33",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 2,
+        "y": 8
+      },
+      "time": 163800
+    },
+    {
+      "id": "34",
+      "payload": {
+        "k": "p",
+        "c": "cannon",
+        "x": 1,
+        "y": 7
+      },
+      "time": 168000
+    },
+    {
+      "id": "35",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 6
+      },
+      "time": 170800
+    },
+    {
+      "id": "36",
+      "payload": {
+        "k": "p",
+        "c": "mortar",
+        "x": 2,
+        "y": 6
+      },
+      "time": 177100
+    }
+  ]
+}

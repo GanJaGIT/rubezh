@@ -1,0 +1,647 @@
+{
+  "id": "fixture-2",
+  "meta": {
+    "meta1": 200,
+    "meta2": 1,
+    "meta3": 3
+  },
+  "player": {
+    "name": "Fixture 2",
+    "avatar": ""
+  },
+  "timeline": [
+    {
+      "id": "1",
+      "payload": {
+        "k": "h",
+        "v": 1,
+        "deck": ["workshop", "cannon", "fireball", "repair", "outpost", "archers", "watch", "wall"],
+        "lv": [1, 1, 1, 1, 1, 1, 1, 1],
+        "pl": 1,
+        "ar": 1,
+        "seed": 502
+      },
+      "time": 0
+    },
+    {
+      "id": "2",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 1,
+        "y": 9
+      },
+      "time": 0
+    },
+    {
+      "id": "3",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 8
+      },
+      "time": 2800
+    },
+    {
+      "id": "4",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 2,
+        "y": 7
+      },
+      "time": 5600
+    },
+    {
+      "id": "5",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 2,
+        "y": 6
+      },
+      "time": 8400
+    },
+    {
+      "id": "6",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 2,
+        "y": 9
+      },
+      "time": 12600
+    },
+    {
+      "id": "7",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 4
+      },
+      "time": 16800
+    },
+    {
+      "id": "8",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 0,
+        "y": 4
+      },
+      "time": 24500
+    },
+    {
+      "id": "9",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 1,
+        "y": 3
+      },
+      "time": 25200
+    },
+    {
+      "id": "10",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 2,
+        "y": 6
+      },
+      "time": 28000
+    },
+    {
+      "id": "11",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 7
+      },
+      "time": 33600
+    },
+    {
+      "id": "12",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 4
+      },
+      "time": 36400
+    },
+    {
+      "id": "13",
+      "payload": {
+        "k": "p",
+        "c": "workshop",
+        "x": 4,
+        "y": 9
+      },
+      "time": 44800
+    },
+    {
+      "id": "14",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 2,
+        "y": 7
+      },
+      "time": 46900
+    },
+    {
+      "id": "15",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 3,
+        "y": 6
+      },
+      "time": 47600
+    },
+    {
+      "id": "16",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 6
+      },
+      "time": 52500
+    },
+    {
+      "id": "17",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 2,
+        "y": 4
+      },
+      "time": 56000
+    },
+    {
+      "id": "18",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 8
+      },
+      "time": 61600
+    },
+    {
+      "id": "19",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 2,
+        "y": 7
+      },
+      "time": 64400
+    },
+    {
+      "id": "20",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 2,
+        "y": 6
+      },
+      "time": 65100
+    },
+    {
+      "id": "21",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 2,
+        "y": 8
+      },
+      "time": 70000
+    },
+    {
+      "id": "22",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 4
+      },
+      "time": 72800
+    },
+    {
+      "id": "23",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 4
+      },
+      "time": 78400
+    },
+    {
+      "id": "24",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 4,
+        "y": 4
+      },
+      "time": 81200
+    },
+    {
+      "id": "25",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 2,
+        "y": 6
+      },
+      "time": 82600
+    },
+    {
+      "id": "26",
+      "payload": {
+        "k": "p",
+        "c": "fireball",
+        "x": 0,
+        "y": 2
+      },
+      "time": 89600
+    },
+    {
+      "id": "27",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 4
+      },
+      "time": 94500
+    },
+    {
+      "id": "28",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 0,
+        "y": 4
+      },
+      "time": 100800
+    },
+    {
+      "id": "29",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 1,
+        "y": 3
+      },
+      "time": 101500
+    },
+    {
+      "id": "30",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 2,
+        "y": 6
+      },
+      "time": 103600
+    },
+    {
+      "id": "31",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 7
+      },
+      "time": 106400
+    },
+    {
+      "id": "32",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 6
+      },
+      "time": 112000
+    },
+    {
+      "id": "33",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 0,
+        "y": 4
+      },
+      "time": 117600
+    },
+    {
+      "id": "34",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 0,
+        "y": 3
+      },
+      "time": 119000
+    },
+    {
+      "id": "35",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 120400
+    },
+    {
+      "id": "36",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 2,
+        "y": 6
+      },
+      "time": 123200
+    },
+    {
+      "id": "37",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 3
+      },
+      "time": 124600
+    },
+    {
+      "id": "38",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 3
+      },
+      "time": 128800
+    },
+    {
+      "id": "39",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 0,
+        "y": 3
+      },
+      "time": 130200
+    },
+    {
+      "id": "40",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 130900
+    },
+    {
+      "id": "41",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 0,
+        "y": 3
+      },
+      "time": 133000
+    },
+    {
+      "id": "42",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 2
+      },
+      "time": 135800
+    },
+    {
+      "id": "43",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 2
+      },
+      "time": 138600
+    },
+    {
+      "id": "44",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 0,
+        "y": 3
+      },
+      "time": 140000
+    },
+    {
+      "id": "45",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 1,
+        "y": 6
+      },
+      "time": 141400
+    },
+    {
+      "id": "46",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 6
+      },
+      "time": 142800
+    },
+    {
+      "id": "47",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 1,
+        "y": 2
+      },
+      "time": 145600
+    },
+    {
+      "id": "48",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 1,
+        "y": 3
+      },
+      "time": 148400
+    },
+    {
+      "id": "49",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 1,
+        "y": 2
+      },
+      "time": 149800
+    },
+    {
+      "id": "50",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 0,
+        "y": 6
+      },
+      "time": 151200
+    },
+    {
+      "id": "51",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 6
+      },
+      "time": 154000
+    },
+    {
+      "id": "52",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 0,
+        "y": 3
+      },
+      "time": 155400
+    },
+    {
+      "id": "53",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 4,
+        "y": 4
+      },
+      "time": 159600
+    },
+    {
+      "id": "54",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 4,
+        "y": 3
+      },
+      "time": 161000
+    },
+    {
+      "id": "55",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 0,
+        "y": 6
+      },
+      "time": 161700
+    },
+    {
+      "id": "56",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 2,
+        "y": 6
+      },
+      "time": 163800
+    },
+    {
+      "id": "57",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 3,
+        "y": 2
+      },
+      "time": 166600
+    },
+    {
+      "id": "58",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 3,
+        "y": 3
+      },
+      "time": 169400
+    },
+    {
+      "id": "59",
+      "payload": {
+        "k": "p",
+        "c": "wall",
+        "x": 3,
+        "y": 2
+      },
+      "time": 170800
+    },
+    {
+      "id": "60",
+      "payload": {
+        "k": "p",
+        "c": "outpost",
+        "x": 0,
+        "y": 6
+      },
+      "time": 172200
+    },
+    {
+      "id": "61",
+      "payload": {
+        "k": "p",
+        "c": "repair",
+        "x": 3,
+        "y": 3
+      },
+      "time": 173600
+    },
+    {
+      "id": "62",
+      "payload": {
+        "k": "p",
+        "c": "watch",
+        "x": 3,
+        "y": 2
+      },
+      "time": 176400
+    },
+    {
+      "id": "63",
+      "payload": {
+        "k": "p",
+        "c": "archers",
+        "x": 2,
+        "y": 2
+      },
+      "time": 179200
+    }
+  ]
+}

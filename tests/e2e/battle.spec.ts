@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import { openGame, presetSave, played, quickLoss, quickWin, sim, state } from './helpers';
 
@@ -108,4 +109,17 @@ test('GD-01, WIN-04: a battle runs 3:00 and the overtime minute, then ends (a dr
   await page.evaluate(() => window.__game?.tick(1200));
   await expect(page.locator('[data-ui="battle-result"]')).toBeVisible();
   expect((await state(page)).winner).toBeNull();
+});
+
+test('SIM-40: the reference battles give the same hashes in the browser as in Node', async ({
+  page,
+}) => {
+  const want = JSON.parse(readFileSync('tests/fixtures/sim-hashes.json', 'utf8')) as Record<
+    string,
+    number
+  >;
+  await openGame(page, '?battle=1');
+  const seeds = Object.keys(want).map(Number).slice(0, 4);
+  const got = await page.evaluate((s) => window.__game?.referenceHashes(s), seeds);
+  expect(got).toEqual(seeds.map((s) => want[String(s)]));
 });

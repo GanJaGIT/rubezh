@@ -13,7 +13,14 @@ import type { AudioService, Sfx } from './services/audio';
 import type { GameplayState } from './services/gameplay-state';
 import type { ProgressService } from './services/progress';
 import type { SaveData } from './services/SaveData';
-import { cloneState, type Action, type BattleSetup, type BattleState, type Side } from './sim';
+import {
+  cloneState,
+  referenceHash,
+  type Action,
+  type BattleSetup,
+  type BattleState,
+  type Side,
+} from './sim';
 
 export interface UiRect {
   ui: string;
@@ -55,6 +62,8 @@ export interface DevHooks {
   resumeTime(): void;
   setSpeed(x: number): void;
   openBattle(setup?: BattleSetup): void;
+  /** SIM-40: the reference battles played in this browser (tests/fixtures/sim-hashes.json). */
+  referenceHashes(seeds: number[]): number[];
   /** Ends the battle at once: the loser surrenders (a real action, UI-08). */
   finish(winner: Side): void;
   cellClient(x: number, y: number): { x: number; y: number };
@@ -148,6 +157,7 @@ export function installDevHooks(d: DevDeps): void {
       if (app.session) app.session.speed = x;
     },
     openBattle: (setup) => app.startBattle(setup),
+    referenceHashes: (seeds) => seeds.map((s) => referenceHash(s)),
     finish: (winner) => {
       const s = app.session;
       if (!s) return;

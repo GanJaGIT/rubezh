@@ -8,9 +8,11 @@
 import { STARTER_DECK } from '../content';
 import type { Platform } from '../platform/Platform';
 import { CARD_IDS, type CardId } from '../sim';
+import { defaultSave, SAVE_VERSION } from '../meta/save-data';
 import type { ChestType, SaveData } from './SaveData';
 
-export const SAVE_VERSION = 1;
+export { defaultSave, SAVE_VERSION };
+
 /** Per game (package.json name): projects on one localhost do not share a save. */
 export const LOCAL_KEY = `${__APP_ID__}.save`;
 /** YG-08: under 20 KB; the SDK allows 200 KB. */
@@ -25,32 +27,6 @@ export interface KeyValueStorage {
 }
 
 const CHESTS: ChestType[] = ['wood', 'silver', 'gold'];
-
-export function defaultSave(): SaveData {
-  return {
-    v: SAVE_VERSION,
-    updatedAt: 0,
-    player: { level: 1, xp: 0, trophies: 0, bestTrophies: 0, arena: 1 },
-    gold: 0,
-    gems: 0,
-    cards: Object.fromEntries(STARTER_DECK.map((id) => [id, { level: 1, copies: 0 }])),
-    decks: [[...STARTER_DECK], [], []],
-    activeDeck: 0,
-    chests: [null, null, null, null],
-    chestCycle: { order: [], index: 0 },
-    freeChest: { nextAt: 0, stored: 1 },
-    crowns: { day: 0, count: 0, claimed: false },
-    quests: { day: 0, items: [] },
-    shop: { day: 0, offers: [], bought: [] },
-    tutorial: { done: false, step: 0 },
-    stats: { battles: 0, wins: 0 },
-    settings: { sound: true, music: true, lang: null },
-    noAds: false,
-    reviewAsked: false,
-    lastInterstitialAt: 0,
-    seen: [],
-  };
-}
 
 type Obj = Record<string, unknown>;
 const isObj = (v: unknown): v is Obj => typeof v === 'object' && v !== null && !Array.isArray(v);
@@ -128,6 +104,7 @@ export function migrate(raw: unknown): SaveData | null {
       return {
         type: c.type,
         unlockStartedAt: c.unlockStartedAt === null ? null : count(c.unlockStartedAt) || null,
+        adSkips: ranged(c.adSkips, 0, 3, 0),
       };
     });
   }
