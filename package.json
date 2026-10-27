@@ -1,0 +1,62 @@
+{
+  "name": "rubezh",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Rubezh (Frontline Forts): a competitive fort duel for Yandex Games — TypeScript, Phaser 4, Vite",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:yg": "npm run build && npx @yandex-games/sdk-dev-proxy -p dist --dev-mode=true",
+    "build": "vite build",
+    "build:e2e": "vite build --mode e2e --outDir dist-e2e",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit --coverage",
+    "test:content": "vitest run tests/content",
+    "e2e": "playwright test",
+    "e2e:install": "tsx scripts/e2e-install.ts",
+    "zip": "tsx scripts/zip.ts",
+    "check:build": "tsx scripts/check-build.ts",
+    "check:yg": "tsx scripts/check-yg.ts",
+    "verify": "tsx scripts/verify.ts",
+    "sim": "tsx scripts/sim-cli.ts",
+    "bench": "tsx scripts/bench.ts",
+    "balance": "tsx scripts/balance.ts",
+    "economy": "tsx scripts/economy.ts",
+    "spike": "tsx scripts/spike.ts",
+    "art": "tsx scripts/art.ts",
+    "draft": "tsx scripts/draft.ts",
+    "promo": "tsx scripts/promo.ts",
+    "perf": "tsx scripts/perf.ts",
+    "doctor": "tsx scripts/doctor.ts"
+  },
+  "dependencies": {
+    "phaser": "4.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@fontsource/nunito": "5.3.0",
+    "@playwright/test": "1.64.0",
+    "@resvg/resvg-js": "2.6.2",
+    "@types/node": "26.6.5",
+    "@vitest/coverage-v8": "5.0.3",
+    "@yandex-games/sdk-dev-proxy": "0.0.2",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "10.1.8",
+    "fflate": "0.8.3",
+    "ffmpeg-static": "5.2.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1",
+    "vite": "8.3.4",
+    "vitest": "5.0.3"
+  }
+}

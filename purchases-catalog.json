@@ -1,0 +1,52 @@
+[
+  {
+    "id": "gems_80",
+    "title": "80 кристаллов",
+    "description": "Кристаллы для ускорения сундуков",
+    "imageURI": "",
+    "price": "49 YAN",
+    "priceValue": "49",
+    "priceCurrencyCode": "YAN",
+    "getPriceCurrencyImage": "return ''"
+  },
+  {
+    "id": "gems_500",
+    "title": "500 кристаллов",
+    "description": "Кристаллы для ускорения сундуков",
+    "imageURI": "",
+    "price": "249 YAN",
+    "priceValue": "249",
+    "priceCurrencyCode": "YAN",
+    "getPriceCurrencyImage": "return ''"
+  },
+  {
+    "id": "gems_1200",
+    "title": "1200 кристаллов",
+    "description": "Кристаллы для ускорения сундуков",
+    "imageURI": "",
+    "price": "499 YAN",
+    "priceValue": "499",
+    "priceCurrencyCode": "YAN",
+    "getPriceCurrencyImage": "return ''"
+  },
+  {
+    "id": "starter_pack",
+    "title": "Стартовый набор",
+    "description": "250 кристаллов, 2000 золота и золотой сундук",
+    "imageURI": "",
+    "price": "99 YAN",
+    "priceValue": "99",
+    "priceCurrencyCode": "YAN",
+    "getPriceCurrencyImage": "return ''"
+  },
+  {
+    "id": "no_ads",
+    "title": "Без рекламы",
+    "description": "Без полноэкранной рекламы и баннера",
+    "imageURI": "",
+    "price": "149 YAN",
+    "priceValue": "149",
+    "priceCurrencyCode": "YAN",
+    "getPriceCurrencyImage": "return ''"
+  }
+]

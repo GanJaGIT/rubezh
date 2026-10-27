@@ -1,0 +1,12 @@
+{
+  "tower": { "hp": 600, "dmg": 30, "cooldown": 0.9, "range": 3.5 },
+  "keep": { "hp": 1000, "dmg": 40, "cooldown": 1.0, "range": 3.5 },
+  "playerLevelGrowthPercent": 108,
+  "layout": {
+    "keep": [3, 9],
+    "towers": [
+      [1, 8],
+      [5, 8]
+    ]
+  }
+}

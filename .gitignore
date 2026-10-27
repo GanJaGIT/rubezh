@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-e2e/
+dist-spike/
+release/
+test-results/
+coverage/
+.env
+.env.*

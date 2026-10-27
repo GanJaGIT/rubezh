@@ -1,0 +1,800 @@
+/*
+ * ART-01: the interface theme of the template — restyle it per game through the tokens below
+ * (colours, radii), keep the rules that the layout tests rely on:
+ *   - touch targets ≥ 44 px, text ≥ 14 px (ACC-02), nothing cut or overlapping (QA-04);
+ *   - the header gives its buttons the whole 44 px (edges are shadows, not borders);
+ *   - windows fit a 360×560 phone; on a short screen they get tighter and scroll with the finger;
+ *   - images inside buttons do not take the pointer (WebKit loses clicks otherwise).
+ * Nunito everywhere (TECH-02).
+ */
+
+:root {
+  --ink: #2b2118;
+  --ink-soft: #6b5a45;
+  --bg-top: #5d9b4f;
+  --bg-bottom: #2f6b45;
+  --bar-top: #8a5a33;
+  --bar: #6c4325;
+  --bar-edge: #3b2414;
+  --paper: #fffaf0;
+  --paper-2: #f6ead0;
+  --paper-edge: #d9bf8c;
+  --accent-light: #8fdc63;
+  --accent: #5bb944;
+  --accent-dark: #2f7a2c;
+  --gold-light: #ffe17a;
+  --gold: #ffbf2e;
+  --gold-dark: #b8740c;
+  --ribbon-light: #ffb170;
+  --ribbon: #f07a3c;
+  --ribbon-dark: #a2401f;
+  --grey-light: #e3e1ec;
+  --grey: #b4b0c6;
+  --grey-dark: #76718c;
+  --powder-light: #ffc26b;
+  --powder: #f07a1e;
+  --press: 4px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* UI-13, UI-14: the active area sits inside the safe-area viewport, the rest is background. */
+#viewport {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  background: linear-gradient(var(--bg-top), var(--bg-bottom));
+}
+
+#stage {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.25), transparent 60%),
+    linear-gradient(var(--bg-top), var(--bg-bottom));
+}
+
+#canvas-host {
+  position: absolute;
+  inset: 0;
+}
+
+#canvas-host canvas {
+  display: block;
+}
+
+/* INP-01: the overlay itself lets touches through to the field, its controls do not. */
+#ui {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  font-family:
+    'Nunito',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+  color: var(--ink);
+}
+
+#ui > * {
+  position: absolute;
+  pointer-events: auto;
+}
+
+#ui button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* WebKit: a click is lost when its target node changes under the finger. */
+#ui button svg,
+#ui button img {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ shared pieces */
+
+.hud-header,
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  background: linear-gradient(var(--bar-top), var(--bar));
+  /* The bottom edge is a shadow: a border would leave less than 44 px for the buttons. */
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -3px 0 var(--bar-edge),
+    0 3px 0 rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+/* Candy buttons: a light top, a solid edge under them, pressed on touch. */
+.modal-button,
+.menu-play,
+.shop-buy,
+.settings-action,
+.switch,
+.lang {
+  --face-top: var(--paper);
+  --face: var(--paper-2);
+  --edge: var(--paper-edge);
+  --text: var(--ink);
+  position: relative;
+  border: 3px solid var(--edge);
+  background: linear-gradient(var(--face-top), var(--face));
+  color: var(--text);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.08),
+    0 var(--press) 0 var(--edge);
+  cursor: pointer;
+  transition:
+    transform 0.06s ease-out,
+    box-shadow 0.06s ease-out;
+}
+
+.modal-button:active:not(:disabled),
+.menu-play:active,
+.shop-buy:active:not(:disabled),
+.settings-action:active,
+.switch:active,
+.lang:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.08),
+    0 2px 0 var(--edge);
+}
+
+.modal-button.primary,
+.menu-play,
+.shop-buy,
+.settings-action,
+.switch.on,
+.lang.on {
+  --face-top: var(--accent-light);
+  --face: var(--accent);
+  --edge: var(--accent-dark);
+  --text: #ffffff;
+  text-shadow: 0 2px 0 rgba(31, 82, 29, 0.8);
+}
+
+.modal-button:disabled,
+.shop-buy:disabled {
+  --face-top: var(--grey-light);
+  --face: var(--grey);
+  --edge: var(--grey-dark);
+  --text: #ffffff;
+  text-shadow: none;
+  cursor: default;
+}
+
+.hud-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
+}
+
+.hud-button:active {
+  transform: translateY(1px);
+}
+
+.hud-button svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.hud-spacer {
+  flex: 1 1 auto;
+}
+
+.pill {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  min-height: 34px;
+  padding: 0 10px 0 6px;
+  border-radius: 17px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.pill svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ------------------------------------------------------------------ the battle header (UI-10) */
+
+.hud-opponent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.hud-opponent-name {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* OPP-01, OPP-03: "Battle record" or "Bot" is always visible. */
+.hud-opponent-kind {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+.hud-crowns {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 17px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.hud-crown-blue {
+  color: #9cc4ff;
+}
+
+.hud-crown-red {
+  color: #ffaaa2;
+}
+
+.hud-timer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 18px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.hud-timer.overtime {
+  color: var(--gold-light);
+}
+
+/* GD-20: the elixir bar — whole units and the filling one. */
+.hud-elixir {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--bar-edge);
+}
+
+.hud-elixir-cell {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.hud-elixir-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--powder-light), var(--powder));
+  transform-origin: left center;
+}
+
+/* UI-10: the hand (4 cards and the next one) — the cards arrive in Stage 2. */
+.hud-hand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(var(--bar-top), var(--bar));
+  box-shadow: inset 0 3px 0 var(--bar-edge);
+}
+
+.hud-hand.column {
+  flex-direction: column;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 3px var(--bar-edge);
+}
+
+.hud-slot {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 80px;
+  border: 3px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+}
+
+.hud-hand.column .hud-slot {
+  width: 64px;
+  height: auto;
+  flex: 1 1 0;
+  max-height: 80px;
+}
+
+.hud-slot.next {
+  width: 40px;
+  height: 50px;
+}
+
+.hud-hand.column .hud-slot.next {
+  width: 40px;
+  flex: 0.6 1 0;
+}
+
+/* ------------------------------------------------------------------ the menu (UI-02, UI-03) */
+
+.menu {
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.menu-header {
+  align-self: stretch;
+  flex: 0 0 auto;
+  min-height: 52px;
+}
+
+.menu-title {
+  margin: 8px 0 0;
+  color: #ffffff;
+  font-size: 46px;
+  font-weight: 900;
+  text-shadow:
+    0 3px 0 var(--bar-edge),
+    0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.menu-arena {
+  padding: 6px 16px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.menu-forts {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.menu-forts img {
+  width: 104px;
+  height: auto;
+}
+
+.menu-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(320px, calc(100% - 32px));
+  min-height: 64px;
+  margin-top: auto;
+  margin-bottom: 18px;
+  border-radius: 20px;
+}
+
+.menu-play-label {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* ------------------------------------------------------------------ windows (UI-05) */
+
+.modal-backdrop {
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(30, 20, 10, 0.55);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: min(340px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  /* A window taller than a short screen scrolls with the finger, the page itself does not. */
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 16px 16px 18px;
+  border: 4px solid var(--paper-edge);
+  border-radius: 24px;
+  background: linear-gradient(var(--paper), var(--paper-2));
+  box-shadow:
+    0 6px 0 var(--bar-edge),
+    0 18px 40px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  animation: modal-in 0.22s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+@keyframes modal-in {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+.modal-title {
+  align-self: center;
+  max-width: 100%;
+  margin: 0 0 2px;
+  padding: 6px 20px 8px;
+  border: 3px solid var(--ribbon-dark);
+  border-radius: 16px;
+  background: linear-gradient(var(--ribbon-light), var(--ribbon));
+  box-shadow: 0 3px 0 var(--ribbon-dark);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.15;
+  text-shadow: 0 2px 0 var(--ribbon-dark);
+}
+
+.modal-text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* In a window taller than the screen the list scrolls and the buttons stay in sight (QA-04). */
+.modal-buttons {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 -4px;
+  padding: 6px 4px 0;
+  background: var(--paper-2);
+}
+
+.modal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.modal-button svg {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.star svg {
+  display: block;
+  width: 60px;
+  height: 60px;
+  filter: grayscale(1) opacity(0.4);
+}
+
+.star.on svg {
+  filter: none;
+}
+
+.star.on {
+  animation: star-pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+
+@keyframes star-pop {
+  from {
+    transform: scale(0) rotate(-30deg);
+  }
+}
+
+.complete {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.complete-coins {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.complete-coins svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* ------------------------------------------------------------------ settings (UI-06) */
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed var(--paper-edge);
+}
+
+.settings-label {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.settings-hint {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.switch,
+.lang {
+  min-width: 76px;
+  min-height: 44px;
+  padding: 6px 12px;
+  border-radius: 22px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.settings-langs {
+  justify-content: center;
+}
+
+.settings-langs .lang {
+  flex: 1 1 0;
+}
+
+.settings-version {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.shop-buy,
+.settings-action {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 88px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* Low screens (a phone in a browser with its bars): the same windows, tighter. */
+@media (max-height: 640px) {
+  .modal-backdrop {
+    padding: 8px;
+  }
+
+  .modal {
+    gap: 8px;
+    padding: 10px 14px 12px;
+  }
+
+  .modal-title {
+    padding: 4px 16px 5px;
+    font-size: 19px;
+  }
+
+  .settings {
+    gap: 6px;
+  }
+
+  .settings-row {
+    padding-bottom: 6px;
+  }
+
+  .settings-hint {
+    line-height: 1.25;
+  }
+
+  .shop {
+    gap: 6px;
+  }
+
+  .shop-item {
+    padding: 4px 8px;
+  }
+}
+
+/* ------------------------------------------------------------------ leaderboard, shop */
+
+.rating-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 10px;
+  background: var(--paper-2);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.rating-row.me {
+  background: var(--gold-light);
+}
+
+.rating-rank {
+  min-width: 26px;
+  color: var(--ink-soft);
+}
+
+.rating-name {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 2px solid var(--paper-edge);
+  border-radius: 14px;
+  text-align: left;
+}
+
+.shop-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.shop-text {
+  flex: 1 1 auto;
+}
+
+.shop-title {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.shop-desc {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.shop-currency {
+  width: 18px;
+  height: 18px;
+}
+
+/* ------------------------------------------------------------------ the note (toast) */
+
+.toast {
+  top: 54px;
+  left: 50%;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+  padding: 8px 14px;
+  border: 3px solid var(--paper-edge);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 4px 0 var(--bar-edge);
+  font-size: 15px;
+  font-weight: 800;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.toast-image {
+  width: 32px;
+  height: 32px;
+}
+
+/* ------------------------------------------------------------------ DEV-03 */
+
+.dev-panel {
+  position: fixed;
+  right: 4px;
+  bottom: 4px;
+  z-index: 200;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  font: 12px monospace;
+}

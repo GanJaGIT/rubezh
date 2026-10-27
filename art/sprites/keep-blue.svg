@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 168" width="128" height="168" stroke-linejoin="round" stroke-linecap="round">
+<ellipse cx="64" cy="154" rx="56" ry="11" fill="#1d3a1a" opacity="0.18"/>
+<rect x="20" y="92" width="88" height="60" rx="8" fill="#d9cfbb" stroke="#33261b" stroke-width="6"/>
+<rect x="84" y="95" width="21" height="54" rx="5" fill="#b4a78e"/>
+<rect x="25" y="96" width="30" height="8" rx="4" fill="#f1ead9" opacity="0.7"/>
+<rect x="22" y="82" width="9.333333333333334" height="9" rx="2" fill="#d9cfbb" stroke="#33261b" stroke-width="4"/><rect x="40.66666666666667" y="82" width="9.333333333333334" height="9" rx="2" fill="#d9cfbb" stroke="#33261b" stroke-width="4"/><rect x="59.333333333333336" y="82" width="9.333333333333334" height="9" rx="2" fill="#d9cfbb" stroke="#33261b" stroke-width="4"/><rect x="78" y="82" width="9.333333333333334" height="9" rx="2" fill="#d9cfbb" stroke="#33261b" stroke-width="4"/><rect x="96.66666666666667" y="82" width="9.333333333333334" height="9" rx="2" fill="#d9cfbb" stroke="#33261b" stroke-width="4"/>
+<path d="M50 152 L50 128 Q64 112 78 128 L78 152 Z" fill="#7a5232" stroke="#33261b" stroke-width="5"/>
+<line x1="64" y1="122" x2="64" y2="151" stroke="#33261b" stroke-width="3"/>
+<rect x="8" y="70" width="30" height="82" rx="7" fill="#d9cfbb" stroke="#33261b" stroke-width="6"/>
+<rect x="27" y="74" width="9" height="76" rx="4" fill="#b4a78e"/>
+<rect x="90" y="70" width="30" height="82" rx="7" fill="#d9cfbb" stroke="#33261b" stroke-width="6"/>
+<rect x="109" y="74" width="9" height="76" rx="4" fill="#b4a78e"/>
+<path d="M3 74 L23 34 L43 74 Z" fill="#4a86e0" stroke="#33261b" stroke-width="6"/>
+<path d="M23 38 L39 72 L27 72 Z" fill="#2d5fb3"/>
+<path d="M85 74 L105 34 L125 74 Z" fill="#4a86e0" stroke="#33261b" stroke-width="6"/>
+<path d="M105 38 L121 72 L109 72 Z" fill="#2d5fb3"/>
+<rect x="46" y="56" width="36" height="44" rx="6" fill="#d9cfbb" stroke="#33261b" stroke-width="6"/>
+<rect x="69" y="60" width="10" height="38" rx="4" fill="#b4a78e"/>
+<rect x="58" y="70" width="12" height="16" rx="6" fill="#33261b"/>
+<path d="M40 60 L64 26 L88 60 Z" fill="#4a86e0" stroke="#33261b" stroke-width="6"/>
+<path d="M64 30 L84 58 L70 58 Z" fill="#2d5fb3"/>
+<path d="M50 54 L60 40" stroke="#ffffff" stroke-width="4" opacity="0.45"/>
+<line x1="64" y1="27" x2="64" y2="5" stroke="#33261b" stroke-width="4"/>
+<path d="M64 6 L90 6 L90 21 L64 21 Z" fill="#4a86e0" stroke="#33261b" stroke-width="4"/>
+</svg>

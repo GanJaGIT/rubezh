@@ -1,0 +1,25 @@
+{
+  "howtoKeys": ["Escape", "1–4"],
+  "langs": {
+    "ru": {
+      "title": "Рубеж",
+      "seo": "Дуэль фортов: стройте стены и пушки на поле 7×10, двигайте рубеж к врагу, накладывайте карты в звёзды и разрушьте крепость соперника.",
+      "short": "Ставьте постройки, двигайте рубеж и разрушьте вражескую крепость",
+      "about": "Соревновательная дуэль фортов в мультяшном средневековье. У вас колода из восьми карт-построек: стены, сторожевые вышки, лучники, пушки, мортиры и катапульты. Постройки встают на клетки поля и стреляют сами, а зона застройки растёт вокруг них — так рубеж ползёт к вражеской крепости.\n\nОдинаковая карта, сыгранная на свою постройку, добавляет ей звезду и делает сильнее. Побеждайте, открывайте сундуки, прокачивайте карты, собирайте колоды и поднимайтесь по пяти аренам.\n\nСоперники — записи боёв других игроков, а когда подходящей записи нет — боты. В бою всегда видно, с кем вы играете.",
+      "howto": "Порох копится сам. Перетащите карту из руки на подсвеченную клетку своей зоны — постройка встанет и начнёт стрелять по ближайшим вражеским постройкам. Можно и коснуться карты, а потом клетки. Зона застройки — два задних ряда и клетки рядом с вашими постройками. Карта на свою такую же постройку даёт ей звезду. Разрушенная башня — корона, разрушенная крепость — победа. Через 3 минуты побеждает тот, у кого больше корон.\n\nНа телефоне — касания и перетаскивание пальцем. На компьютере — мышь; клавиши 1–4 выбирают карту, Escape — пауза.",
+      "keywords": "стратегия, карты, колода, крепость, башни, дуэль, средневековье, катапульта",
+      "tags": ["Стратегии", "Карточные", "Для мальчиков"],
+      "categories": ["Стратегии", "Карточные"]
+    },
+    "en": {
+      "title": "Frontline Forts",
+      "seo": "A fort duel: build walls and cannons on a 7×10 field, push your frontline forward, stack cards into stars and bring down the enemy keep.",
+      "short": "Build, push the frontline and bring down the enemy keep",
+      "about": "A competitive fort duel in a cartoon medieval world. Your deck has eight building cards: walls, watchtowers, archers, cannons, mortars and catapults. Buildings stand on the field cells and shoot on their own, and your building zone grows around them, so the frontline creeps towards the enemy keep.\n\nThe same card played on your own building adds a star and makes it stronger. Win battles, open chests, upgrade cards, build decks and climb through five arenas.\n\nOpponents are recorded battles of other players, and bots when no fitting record is found. The battle screen always shows which one you face.",
+      "howto": "Powder fills up by itself. Drag a card from your hand to a lit cell of your zone: the building appears and shoots at the nearest enemy buildings. You can also tap a card and then a cell. Your zone is the two back rows and the cells next to your buildings. A card played on your own building of the same kind gives it a star. A fallen tower gives a crown, a fallen keep wins the battle. After 3 minutes the side with more crowns wins.\n\nOn a phone, tap and drag with your finger. On a computer, use the mouse; keys 1–4 pick a card, Escape pauses.",
+      "keywords": "strategy, cards, deck, fort, towers, duel, medieval, catapult",
+      "tags": ["Strategy", "Card", "For boys"],
+      "categories": ["Strategy", "Card"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mainSec": 180,
+  "doubleElixirFromSec": 120,
+  "overtimeSec": 60,
+  "elixir": { "start": 5, "max": 10, "regenSec": 2.8 },
+  "deploySec": 1,
+  "handSize": 4
+}
