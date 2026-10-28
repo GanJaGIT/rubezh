@@ -4,7 +4,7 @@ import { Bot, randomDeck, runBattle, type CardId } from '../../src/sim';
 /**
  * T-12, T-17: 1000 battles of bots (random decks, all three bot speeds) — no invalid action of a
  * bot, the invariants (SIM-41) after every tick, every battle ends. A file of its own: it is the
- * slowest test, and vitest runs files in parallel.
+ * slowest test: it runs in its own verify step without the coverage instrument.
  */
 
 describe('T-12, T-17: 1000 battles of bots', () => {

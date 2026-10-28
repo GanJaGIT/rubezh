@@ -18,6 +18,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit --coverage",
+    "test:heavy": "vitest run tests/heavy",
     "test:content": "vitest run tests/content",
     "e2e": "playwright test",
     "e2e:install": "tsx scripts/e2e-install.ts",

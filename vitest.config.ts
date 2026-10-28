@@ -7,7 +7,7 @@ export default defineConfig({
     __DEV_HOOKS__: JSON.stringify(true),
   },
   test: {
-    include: ['tests/unit/**/*.test.ts', 'tests/content/**/*.test.ts'],
+    include: ['tests/unit/**/*.test.ts', 'tests/content/**/*.test.ts', 'tests/heavy/**/*.test.ts'],
     environment: 'node',
     coverage: {
       provider: 'v8',

@@ -9,6 +9,8 @@ const steps: [string, string][] = [
   ['typecheck', 'npm run typecheck'],
   ['lint', 'npm run lint'],
   ['unit', 'npm run test:unit'],
+  // T-12, T-16, T-17: the heavy battle series, without the coverage instrument.
+  ['heavy', 'npm run test:heavy'],
   // QA-02: the content JSON is complete and consistent.
   ['content', 'npm run test:content'],
   // QA-05: a short tournament of 100 battles — no crashes, no invalid bot actions, invariants.

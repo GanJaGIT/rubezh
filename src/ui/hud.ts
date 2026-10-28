@@ -139,7 +139,7 @@ export class Hud {
     }
   }
 
-  /** FX-05: a big word over the field for a moment («Двойной порох!»). */
+  /** FX-05: a big word over the field for a moment (double powder, the deciding minute). */
   showBanner(text: string): void {
     window.clearTimeout(this.bannerTimer);
     setText(this.banner, text);
