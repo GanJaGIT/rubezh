@@ -35,7 +35,8 @@
     "draft": "tsx scripts/draft.ts",
     "promo": "tsx scripts/promo.ts",
     "perf": "tsx scripts/perf.ts",
-    "doctor": "tsx scripts/doctor.ts"
+    "doctor": "tsx scripts/doctor.ts",
+    "siege": "tsx scripts/siege.ts"
   },
   "dependencies": {
     "phaser": "4.2.1"

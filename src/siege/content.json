@@ -1,0 +1,234 @@
+{
+  "gateHp": 60,
+  "startOre": 110,
+  "hand": 3,
+  "reroll": 10,
+  "ring": {
+    "inset": 600,
+    "chamfer": 500
+  },
+  "wave": {
+    "first": 60,
+    "interval": 320,
+    "spacing": 10,
+    "hpLinear": 300,
+    "hpSquare": 120,
+    "bountyLinear": 30,
+    "bossEvery": 5,
+    "corruptFrom": 3,
+    "last": 60
+  },
+  "hero": {
+    "speed": 150,
+    "dmg": 10,
+    "cd": 14,
+    "range": 900,
+    "block": 700,
+    "blockSpeed": 350,
+    "aura": 1600,
+    "haste": 250,
+    "abilityCd": 360,
+    "abilityRadius": 1800,
+    "abilityStun": 40,
+    "abilityDmg": 30
+  },
+  "horn": {
+    "cost": 40,
+    "step": 10,
+    "cd": 200,
+    "kind": "runner",
+    "count": 3
+  },
+  "lastStand": {
+    "hp": 20,
+    "ticks": 160,
+    "haste": 1000
+  },
+  "shadowHp": 1200,
+  "enemies": {
+    "imp": {
+      "hp": 50,
+      "speed": 50,
+      "strike": 1,
+      "bounty": 3,
+      "from": 1,
+      "weight": 10
+    },
+    "runner": {
+      "hp": 35,
+      "speed": 85,
+      "strike": 1,
+      "bounty": 3,
+      "from": 3,
+      "weight": 6
+    },
+    "swarm": {
+      "hp": 16,
+      "speed": 65,
+      "strike": 1,
+      "bounty": 1,
+      "from": 4,
+      "weight": 4,
+      "group": 5
+    },
+    "brute": {
+      "hp": 150,
+      "speed": 32,
+      "strike": 3,
+      "bounty": 8,
+      "armor": 6,
+      "from": 6,
+      "weight": 4
+    },
+    "bat": {
+      "hp": 60,
+      "speed": 62,
+      "strike": 1,
+      "bounty": 4,
+      "air": true,
+      "from": 7,
+      "weight": 4
+    },
+    "splitter": {
+      "hp": 110,
+      "speed": 40,
+      "strike": 2,
+      "bounty": 5,
+      "split": "imp",
+      "from": 8,
+      "weight": 3
+    },
+    "golem": {
+      "hp": 1400,
+      "speed": 22,
+      "strike": 12,
+      "bounty": 60,
+      "armor": 10,
+      "boss": true,
+      "stomp": {
+        "every": 120,
+        "radius": 1700,
+        "stun": 30
+      }
+    }
+  },
+  "tiers": {
+    "dmg": [1000, 2300, 5300, 12000],
+    "range": [0, 150, 300, 450]
+  },
+  "buildings": {
+    "crossbow": {
+      "cost": 30,
+      "dmg": 14,
+      "cd": 12,
+      "range": 2300,
+      "air": true,
+      "branches": [
+        {
+          "id": "scorpion",
+          "dmgMul": 2200,
+          "cdMul": 1600,
+          "rangeAdd": 900,
+          "pierce": true
+        },
+        {
+          "id": "volley",
+          "targets": 3
+        }
+      ]
+    },
+    "cannon": {
+      "cost": 45,
+      "dmg": 26,
+      "cd": 28,
+      "range": 2000,
+      "splash": 800,
+      "branches": [
+        {
+          "id": "mortar",
+          "rangeAdd": 1500,
+          "splashAdd": 400,
+          "cdMul": 1300
+        },
+        {
+          "id": "flamer",
+          "rangeAdd": -500,
+          "cdMul": 500,
+          "dmgMul": 600,
+          "air": true,
+          "burn": 600
+        }
+      ]
+    },
+    "frost": {
+      "cost": 40,
+      "dmg": 5,
+      "cd": 16,
+      "range": 2000,
+      "air": true,
+      "slow": 400,
+      "slowT": 30,
+      "branches": [
+        {
+          "id": "blizzard",
+          "aura": true,
+          "cdMul": 1500
+        },
+        {
+          "id": "rime",
+          "freezeEvery": 3,
+          "freezeT": 25
+        }
+      ]
+    },
+    "tesla": {
+      "cost": 50,
+      "dmg": 12,
+      "cd": 24,
+      "range": 2100,
+      "air": true,
+      "chain": 3,
+      "branches": [
+        {
+          "id": "storm",
+          "chain": 6
+        },
+        {
+          "id": "surge",
+          "stun": 10
+        }
+      ]
+    },
+    "mine": {
+      "cost": 40,
+      "ore": [4, 10, 22, 45],
+      "every": 100,
+      "branches": [
+        {
+          "id": "vault",
+          "interest": 40,
+          "interestCap": [0, 0, 20, 50]
+        },
+        {
+          "id": "forge",
+          "forge": 250,
+          "oreMul": 600
+        }
+      ]
+    },
+    "banner": {
+      "cost": 35,
+      "haste": [200, 350, 550, 800],
+      "branches": [
+        {
+          "id": "warhorn",
+          "rangeAura": 500
+        },
+        {
+          "id": "shrine",
+          "dmgAura": [0, 0, 300, 500]
+        }
+      ]
+    }
+  }
+}
