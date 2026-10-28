@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { dictionaries, supportedLangs } from '../../src/i18n';
+import { cardParams } from '../../src/meta';
+import { CARD_IDS } from '../../src/sim';
 import { I18n, resolveLang } from '../../src/services/I18n';
 
 describe('i18n', () => {
@@ -38,6 +40,27 @@ describe('i18n', () => {
         ).toBeTruthy();
       }
     }
+  });
+
+  it('CRD-02: every card has a name and a description; every {number} in it is known', () => {
+    for (const lang of supportedLangs) {
+      const d = dictionaries[lang] ?? {};
+      for (const id of CARD_IDS) {
+        expect(d[`card.${id}.name`], `${lang}: ${id}`).toBeTruthy();
+        const desc = d[`card.${id}.desc`] ?? '';
+        const params = cardParams(id, 1);
+        for (const m of desc.matchAll(/{(w+)}/g)) {
+          expect(params[m[1] ?? ''], `${lang}: ${id} {${m[1] ?? ''}}`).toBeGreaterThan(0);
+        }
+      }
+    }
+    // CRD-02: the numbers follow the level.
+    expect(cardParams('cannon', 1)).toMatchObject({ hp: 500, dmg: 90, cooldown: 1.2, range: 2.5 });
+    expect(cardParams('cannon', 3).hp).toBe(605);
+    expect(cardParams('ice', 1)).toMatchObject({ slow: 40, slowSec: 2 });
+    expect(new I18n(dictionaries, 'ru').t('card.cannon.desc', cardParams('cannon', 1))).toContain(
+      '90 урона',
+    );
   });
 
   it('YG-06: language resolution', () => {

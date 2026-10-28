@@ -5,7 +5,7 @@
  */
 
 import progression from '../content/progression.json';
-import { CARD_IDS, CARDS, type CardId } from '../sim';
+import { CARD_IDS, CARDS, spellAt, stats, TICKS_PER_SEC, UNIT, type CardId } from '../sim';
 import type { SaveData } from './save-data';
 
 export interface UpgradeStep {
@@ -77,4 +77,38 @@ export function deckLevels(
   deck: readonly CardId[],
 ): Partial<Record<CardId, number>> {
   return Object.fromEntries(deck.map((c) => [c, save.cards[c]?.level ?? 1]));
+}
+
+/**
+ * CRD-02: the numbers a card's description shows, at the card's level (one star): hit points
+ * and damage in whole units, times in seconds, shares in percent. The texts take them as
+ * {placeholders} (src/i18n: card.<id>.desc).
+ */
+export function cardParams(card: CardId, level: number): Record<string, number> {
+  const def = CARDS[card];
+  const round1 = (v: number): number => Math.round(v * 10) / 10;
+  if (def.spell) {
+    const sp = spellAt(card, level);
+    return {
+      heal: sp.heal / UNIT,
+      dmg: sp.dmg / UNIT,
+      towerDmg: sp.towerDmg / UNIT,
+      heavyDmg: sp.heavyDmg / UNIT,
+    };
+  }
+  const st = stats(card, level, 1);
+  return {
+    hp: st.maxHp / UNIT,
+    dmg: st.dmg / UNIT,
+    cooldown: round1(st.cooldownTicks / TICKS_PER_SEC),
+    range: def.range,
+    minRange: def.minRange,
+    line: st.line,
+    buff: st.buffPm / 10,
+    reduce: st.reducePm / 10,
+    heal: round1((st.healPerTick * TICKS_PER_SEC) / UNIT),
+    every: st.elixirEveryTicks / TICKS_PER_SEC,
+    slow: st.slowPm / 10,
+    slowSec: st.slowTicks / TICKS_PER_SEC,
+  };
 }

@@ -156,12 +156,17 @@ export interface KindStats {
   zoneRadius: number;
 }
 
-const cache = new Map<string, KindStats>();
+/** kind → [level × 4 + stars]: the hottest lookup of the simulation, no string keys. */
+const cache = new Map<BuildingKind, KindStats[]>();
 const sq100 = (cells: number): number => Math.round(cells * cells * 100);
 
 export function stats(kind: BuildingKind, level: number, stars: number): KindStats {
-  const key = `${kind}:${String(level)}:${String(stars)}`;
-  const hit = cache.get(key);
+  let byKind = cache.get(kind);
+  if (!byKind) {
+    byKind = [];
+    cache.set(kind, byKind);
+  }
+  const hit = byKind[level * 4 + stars];
   if (hit) return hit;
   let s: KindStats;
   if (kind === 'keep' || kind === 'tower') {
@@ -213,7 +218,7 @@ export function stats(kind: BuildingKind, level: number, stars: number): KindSta
       zoneRadius: effect(kind, 'zone')?.radius ?? 1,
     };
   }
-  cache.set(key, s);
+  byKind[level * 4 + stars] = s;
   return s;
 }
 

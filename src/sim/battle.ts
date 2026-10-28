@@ -226,9 +226,11 @@ export function step(s: BattleState, actions: readonly Action[]): BattleEvent[] 
   // SIM-11: elixir and workshops.
   for (const side of SIDES) growElixir(s, side, events);
   // SIM-12: healers.
-  heal(s, events);
+  // The field does not change between healing and shooting: one grid for both.
+  const occ = occupancy(s);
+  heal(s, occ, events);
   // SIM-13: shooting — targets by the state at the start of the phase, damage all at once.
-  shoot(s, events);
+  shoot(s, occ, events);
   // SIM-14: destruction, crowns, zones.
   destroy(s, events);
   // SIM-15: time and the end of the battle.
@@ -399,9 +401,8 @@ function reduced(s: BattleState, occ: Int16Array, b: Building, amount: number): 
 }
 
 /** SIM-12, GD-51: healers heal their neighbours; the strongest healer counts. */
-function heal(s: BattleState, events: BattleEvent[]): void {
+function heal(s: BattleState, occ: Int16Array, events: BattleEvent[]): void {
   if (!s.buildings.some((b) => b.kind === 'healer')) return;
-  const occ = occupancy(s);
   for (const b of s.buildings) {
     if (b.hp >= b.maxHp) continue;
     const amount = strongest(
@@ -423,8 +424,7 @@ function heal(s: BattleState, events: BattleEvent[]): void {
  * the damage, the splash and the slows are gathered and applied together, so the order of the
  * buildings never matters.
  */
-function shoot(s: BattleState, events: BattleEvent[]): void {
-  const occ = occupancy(s);
+function shoot(s: BattleState, occ: Int16Array, events: BattleEvent[]): void {
   const damage = new Map<number, number>();
   const slowed: { b: Building; ticks: number; pm: number }[] = [];
   const hit = (b: Building, amount: number): void => {
@@ -561,11 +561,10 @@ export function invariants(s: BattleState): string[] {
   const ids = new Set<number>();
   const cells = new Set<number>();
   for (const b of s.buildings) {
-    const at = `${String(b.x)},${String(b.y)}`;
     if (ids.has(b.id)) p.push(`id ${String(b.id)} twice`);
     ids.add(b.id);
     const cell = cellIndex(b.x, b.y);
-    if (cells.has(cell)) p.push(`two buildings on ${at}`);
+    if (cells.has(cell)) p.push(`two buildings on ${String(b.x)},${String(b.y)}`);
     cells.add(cell);
     if (b.hp > b.maxHp) p.push(`id ${String(b.id)}: hp above max`);
     if (b.stars < 1 || b.stars > 3) p.push(`id ${String(b.id)}: ${String(b.stars)} stars`);
