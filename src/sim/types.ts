@@ -67,6 +67,13 @@ export interface BattleSetup {
   cardLevels?: [CardLevels, CardLevels];
   /** LVL-04: the players' levels grow the keep and the towers. */
   playerLevels: [number, number];
+  /** TUT-01…TUT-03: false keeps the decks in order (the tutorial hands its cards one by one). */
+  shuffle?: boolean;
+  /**
+   * TUT: buildings placed before the battle (board coordinates), and existing ones changed: a
+   * keep or a tower already standing on the cell gets the given share of hit points (‰).
+   */
+  preset?: { side: Side; kind: BuildingKind; x: number; y: number; hpPm?: number }[];
 }
 
 /** What a side did — for the quests (ECO-03), the record rules (REC-04) and the reports. */

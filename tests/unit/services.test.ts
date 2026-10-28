@@ -132,10 +132,23 @@ describe('AudioService (YG-05, FX-06)', () => {
     expect(scalePitch(99)).toBe(scalePitch(10));
   });
 
-  it('FX-06: plays at most 6 sounds a second', () => {
+  it('FX-06: at most 8 sounds a second; the same shot again at once merges with the first', () => {
     const a = new AudioService();
-    for (let i = 0; i < 10; i++) a.play('tap');
-    expect(a.played).toHaveLength(6);
+    for (let i = 0; i < 5; i++) a.play('arrow');
+    expect(a.played).toEqual(['arrow']);
+    const kinds = [
+      'ball',
+      'stone',
+      'bolt',
+      'shard',
+      'hit',
+      'place',
+      'stack',
+      'crown',
+      'tap',
+    ] as const;
+    for (const k of kinds) a.play(k);
+    expect(a.played).toHaveLength(8);
   });
 });
 

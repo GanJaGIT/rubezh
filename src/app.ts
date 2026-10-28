@@ -11,19 +11,23 @@
 
 import { config } from './config';
 import type { FieldScene } from './game/FieldScene';
+import { BattleInput } from './game/input';
 import { BattleSession } from './game/session';
 import { dictionaries, supportedLangs } from './i18n';
 import type { Platform } from './platform/Platform';
 import type { AdService } from './services/ads';
-import type { AudioService } from './services/audio';
+import { scalePitch, type AudioService } from './services/audio';
 import type { GameplayState } from './services/gameplay-state';
 import { I18n } from './services/I18n';
 import type { LeaderboardService } from './services/leaderboard';
 import type { ProgressService } from './services/progress';
 import type { ShopService } from './services/shop';
-import type { BattleEvent, BattleSetup, BattleState } from './sim';
+import { awardChest, botOpponent, deckLevels } from './meta';
+import { Bot, type BattleEvent, type BattleSetup, type BattleState, type CardId } from './sim';
+import { Tutorial, tutorialSetup, type TutorialStep } from './tutorial';
 import { APP_VERSION } from './version';
 import { el, ICONS } from './ui/dom';
+import { Hand } from './ui/hand';
 import { Hud, type OpponentInfo } from './ui/hud';
 import { computeLayout } from './ui/layout';
 import { Menu } from './ui/menu';
@@ -54,6 +58,11 @@ export interface AppParts {
 export class App {
   session: BattleSession | null = null;
   opponent: OpponentInfo | null = null;
+  private botName = 1;
+  private readonly hand: Hand;
+  private readonly input: BattleInput;
+  /** TUT-01…TUT-03: the tutorial battle in progress, if any. */
+  private tutorial: Tutorial | null = null;
   private i18n: I18n;
   private readonly hud: Hud;
   private readonly menu: Menu;
@@ -69,6 +78,23 @@ export class App {
   constructor(private readonly p: AppParts) {
     this.i18n = p.i18n;
     this.hud = new Hud(p.ui, p.i18n, { pause: () => this.pause() });
+    this.hand = new Hand(this.hud.hand, p.i18n, { press: (i, e) => this.input.press(i, e) });
+    this.input = new BattleInput({
+      ui: p.ui,
+      stage: p.stage,
+      field: p.field,
+      scene: p.scene,
+      hand: this.hand,
+      state: () => this.session?.state ?? null,
+      blocked: () => this.blocked(),
+      play: (card, x, y) => this.playCard(card, x, y),
+      refused: () => p.audio.play('invalid'),
+      info: (b) => this.hud.info(b),
+      chose: (i) => {
+        if (i >= 0) p.audio.play('tap');
+        this.tutorial?.chose(i);
+      },
+    });
     this.hud.setVisible(false);
     this.menu = new Menu(
       p.ui,
@@ -114,8 +140,79 @@ export class App {
 
   /** UI-02: the first launch opens a battle at once (the tutorial in Stage 2), later — the menu. */
   boot(battle: boolean): void {
-    if (battle || this.p.progress.firstLaunch()) this.startBattle();
+    const t = this.p.progress.data.tutorial;
+    if (battle) this.startBattle();
+    else if (!t.done) this.startTutorial(Math.min(3, t.step + 1) as TutorialStep);
     else this.showMenu();
+  }
+
+  /** TUT-01…TUT-03: a tutorial battle against a passive bot. */
+  startTutorial(step: TutorialStep): void {
+    const d = this.p.progress.data;
+    this.startBattle(tutorialSetup(step, d.player.level));
+    const s = this.session;
+    if (!s) return;
+    s.driver = null;
+    this.opponent = { name: this.i18n.t('tut.bot'), kind: 'bot' };
+    this.hud.setOpponent(this.opponent);
+    this.tutorial = new Tutorial(
+      step,
+      {
+        say: (key) => this.hud.say(key ? this.i18n.t(key) : null),
+        card: (i) => this.hand.hint(i),
+        cell: (c) => this.p.scene.setHint(c),
+        done: (n) => this.tutorialDone(n),
+      },
+      s.state,
+    );
+  }
+
+  /**
+   * TUT-02, TUT-03: a tutorial battle is won. No trophies are given or taken; after the third the
+   * first chest arrives and the menu opens. After the first the rest can be skipped.
+   */
+  private tutorialDone(step: TutorialStep): void {
+    const pr = this.p.progress;
+    pr.data.tutorial.step = Math.max(pr.data.tutorial.step, step);
+    const last = step === 3;
+    if (last) this.finishTutorial();
+    else pr.commitImportant();
+    this.halt();
+    this.p.audio.play('win');
+    this.modals.open({
+      ui: 'tutorial-done',
+      title: this.i18n.t(`tut.${String(step)}.done`),
+      text: this.i18n.t(last ? 'tut.all' : `tut.${String(step)}.next`),
+      buttons: [
+        {
+          ui: 'tutorial-next',
+          label: this.i18n.t(last ? 'tut.menu' : 'tut.next'),
+          primary: true,
+          onClick: () => (last ? this.showMenu() : this.startTutorial((step + 1) as TutorialStep)),
+        },
+        ...(last
+          ? []
+          : [
+              {
+                ui: 'tutorial-skip',
+                label: this.i18n.t('tut.skip'),
+                onClick: () => {
+                  this.finishTutorial();
+                  this.showMenu();
+                },
+              },
+            ]),
+      ],
+    });
+  }
+
+  /** TUT-03: the tutorial is over — the first chest, saved to the cloud at once. */
+  private finishTutorial(): void {
+    const d = this.p.progress.data;
+    if (d.tutorial.done) return;
+    d.tutorial = { done: true, step: 3 };
+    awardChest(d, { rng: this.p.platform.serverTime() >>> 0 });
+    this.p.progress.commitImportant();
   }
 
   // -------------------------------------------------------------------------------------------
@@ -147,27 +244,39 @@ export class App {
     this.p.ads.setBanner(false);
     const d = this.p.progress.data;
     const deck = d.decks[d.activeDeck] ?? [];
+    // SIM-43: a bot battle is seeded by the server clock; OPP-03: the bot of the player's arena.
+    const seed = this.p.platform.serverTime() >>> 0;
+    const bot = botOpponent(d, { rng: seed ^ 0x9e3779b9 });
     const s = new BattleSession(
       setup ?? {
-        // SIM-43: a bot battle is seeded by the server clock.
-        seed: this.p.platform.serverTime() >>> 0,
-        decks: [[...deck], [...deck]],
+        seed,
+        decks: [[...deck], bot.deck],
+        cardLevels: [deckLevels(d, deck), bot.levels],
         playerLevels: [d.player.level, d.player.level],
       },
     );
+    const driver = new Bot(1, { react: bot.react, seed: seed ^ 0x5bd1e995 });
+    s.driver = (state) => driver.next(state);
     s.onTick((events, state) => this.onTick(events, state));
     this.session = s;
-    this.opponent = { name: this.i18n.t('bot.name.1'), kind: 'bot' };
+    this.botName = bot.name;
+    this.opponent = { name: this.i18n.t(`bot.name.${String(bot.name)}`), kind: 'bot' };
     this.hud.setOpponent(this.opponent);
     this.p.scene.setSession(s);
     this.p.field.hidden = false;
     this.hud.setVisible(true);
     this.hud.update(s.state);
+    this.hand.update(s.state);
+    this.input.cancel();
     this.p.gameplay.setInBattle(true);
   }
 
   private endBattle(): void {
     window.clearTimeout(this.endTimer);
+    this.tutorial = null;
+    this.hand.hint(-1);
+    this.p.scene.setHint(null);
+    this.hud.say(null);
     if (this.session) this.session.paused = true;
     this.session = null;
     this.opponent = null;
@@ -181,16 +290,86 @@ export class App {
     return this.modals.current() !== null || (this.session?.paused ?? true) || this.p.ads.showing();
   }
 
+  /** INP-01, INP-02: the player plays a card; it lands at the start of the next tick (SIM-10). */
+  private playCard(card: CardId, x: number, y: number): void {
+    const s = this.session;
+    if (!s || s.paused) return;
+    s.queue({ type: 'play', side: 0, card, x, y });
+    this.hud.info(null);
+  }
+
   private onTick(events: readonly BattleEvent[], state: BattleState): void {
+    const a = this.p.audio;
     for (const e of events) {
-      if (e.type !== 'ended') continue;
-      const won = e.result.winner === 0;
-      this.p.audio.play(won ? 'win' : 'lose');
-      // The player's own surrender comes from a window: its result follows at once.
-      if (e.result.reason === 'surrender' && this.modals.current()) this.showResult();
-      else this.endLater(() => this.showResult());
+      switch (e.type) {
+        // FX-06: the sounds of the battle.
+        case 'placed':
+          a.play('place');
+          break;
+        case 'stacked':
+          a.play('stack', scalePitch(e.stars - 1));
+          break;
+        case 'spell':
+          a.play('spell');
+          break;
+        case 'shot':
+          a.play(e.projectile);
+          break;
+        case 'destroyed':
+          a.play('destroy');
+          break;
+        case 'invalid':
+          if (e.side === 0) a.play('invalid');
+          break;
+        case 'crown':
+          a.play('crown');
+          this.hud.crownPop(e.side);
+          break;
+        // FX-05, TUT-04: double elixir and the deciding minute — and «New» the first time.
+        case 'doubleElixir':
+          this.hud.showBanner(this.i18n.t('battle.double'));
+          this.firstTime('double');
+          break;
+        case 'overtime':
+          this.hud.showBanner(this.i18n.t('battle.overtime'));
+          this.firstTime('overtime');
+          break;
+        case 'ended': {
+          this.input.cancel();
+          if (this.tutorial) break;
+          a.play(e.result.winner === 0 ? 'win' : 'lose');
+          // The player's own surrender comes from a window: its result follows at once.
+          if (e.result.reason === 'surrender' && this.modals.current()) this.showResult();
+          else this.endLater(() => this.showResult());
+          break;
+        }
+        default:
+          break;
+      }
     }
     this.hud.update(state);
+    this.hand.update(state);
+    if (this.input.current() >= 0 && state.tick % 4 === 0) this.input.refresh();
+    this.tutorial?.tick(events, state);
+  }
+
+  /**
+   * TUT-04: a «New» card the first time the player meets a mechanic. It is a window: the battle
+   * waits while the player reads it.
+   */
+  private firstTime(what: string): void {
+    const key = `new:${what}`;
+    if (this.p.progress.seen(key) || this.tutorial) return;
+    this.p.progress.markSeen(key);
+    this.halt();
+    this.modals.open({
+      ui: 'new-card',
+      title: this.i18n.t('new.title'),
+      text: this.i18n.t(`new.${what}`),
+      buttons: [
+        { ui: 'new-ok', label: this.i18n.t('new.ok'), primary: true, onClick: () => this.resume() },
+      ],
+    });
   }
 
   private endLater(show: () => void): void {
@@ -232,6 +411,7 @@ export class App {
 
   private halt(): void {
     const s = this.session;
+    this.input.cancel();
     if (!s) return;
     s.paused = true;
     s.clearPending();
@@ -385,8 +565,10 @@ export class App {
     document.title = this.i18n.t('game.title');
     this.hud.applyTexts(this.i18n);
     this.menu.applyTexts(this.i18n);
+    this.hand.applyTexts(this.i18n);
+    if (this.session) this.hand.update(this.session.state);
     if (this.opponent?.kind === 'bot') {
-      this.opponent = { ...this.opponent, name: this.i18n.t('bot.name.1') };
+      this.opponent = { ...this.opponent, name: this.i18n.t(`bot.name.${String(this.botName)}`) };
       this.hud.setOpponent(this.opponent);
     }
     if (this.session) this.hud.update(this.session.state);
@@ -479,7 +661,15 @@ export class App {
   private key(e: KeyboardEvent): void {
     // A held key repeats: one press is one action.
     if (e.repeat || e.ctrlKey || e.altKey || e.metaKey) return;
+    // INP-05: Digit1–Digit4 choose a card of the hand.
+    const digit = /^Digit([1-4])$/.exec(e.code);
+    if (digit && this.session && !this.modals.current()) {
+      this.input.choose(Number(digit[1]) - 1);
+      return;
+    }
     if (e.code === 'Escape' || e.code === 'KeyP') {
+      // Escape first lets the chosen card go, then pauses.
+      if (e.code === 'Escape' && !this.modals.current() && this.input.cancel()) return;
       if (this.modals.current() === 'pause') this.resume();
       else this.pause();
     }

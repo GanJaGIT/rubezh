@@ -10,10 +10,29 @@
 export type SilenceReason = 'hidden' | 'blur' | 'pagehide' | 'sdk_pause' | 'ad';
 
 export type Sfx =
-  'tap' | 'hit' | 'miss' | 'empty' | 'coin' | 'continue' | 'win' | 'lose' | 'button';
+  | 'tap'
+  | 'place'
+  | 'stack'
+  | 'spell'
+  | 'arrow'
+  | 'ball'
+  | 'stone'
+  | 'bolt'
+  | 'shard'
+  | 'hit'
+  | 'destroy'
+  | 'crown'
+  | 'invalid'
+  | 'coin'
+  | 'chest'
+  | 'win'
+  | 'lose'
+  | 'button';
 
-/** FX-06: at most 6 sounds a second. */
-const MAX_PER_SECOND = 6;
+/** FX-06: at most 8 sounds a second… */
+const MAX_PER_SECOND = 8;
+/** …and the same sound again within this time merges with the first (a volley of arrows). */
+const MERGE_MS = 90;
 const MASTER = 0.7;
 /** SND-02: the ambience is much quieter than the effects. */
 const AMBIENCE = 0.05;
@@ -78,19 +97,60 @@ function voices(name: Sfx, pitch: number): Voice[] {
         { freq: 880, dur: 0.06, type: 'triangle', gain: 0.16, slide: 0.7, attack: 0.002 },
         { kind: 'noise', dur: 0.025, filter: 'highpass', freq: 3500, gain: 0.05 },
       ];
+    case 'place':
+      // Stone set down: a low thud and a puff of dust.
+      return [
+        { freq: 110, dur: 0.22, type: 'triangle', gain: 0.32, slide: 0.6, attack: 0.002 },
+        { kind: 'noise', dur: 0.25, filter: 'lowpass', freq: 900, to: 200, gain: 0.22 },
+      ];
+    case 'stack':
+      // Iron ringing up: the building gets a star.
+      return [
+        { freq: 392 * pitch, dur: 0.6, gain: 0.22, partials: BELL },
+        { freq: 784 * pitch, dur: 0.5, gain: 0.12, partials: BELL, delay: 0.07 },
+      ];
+    case 'spell':
+      return [
+        { kind: 'noise', dur: 0.5, filter: 'bandpass', freq: 400, to: 2400, q: 1.2, gain: 0.26 },
+        { freq: 98, dur: 0.5, type: 'sawtooth', gain: 0.1, slide: 0.5 },
+      ];
+    case 'arrow':
+      return [{ kind: 'noise', dur: 0.09, filter: 'highpass', freq: 2600, to: 5200, gain: 0.08 }];
+    case 'ball':
+      return [
+        { freq: 70, dur: 0.3, type: 'triangle', gain: 0.35, slide: 0.55, attack: 0.002 },
+        { kind: 'noise', dur: 0.18, filter: 'lowpass', freq: 1400, to: 300, gain: 0.26 },
+      ];
+    case 'stone':
+      return [
+        { kind: 'noise', dur: 0.3, filter: 'bandpass', freq: 300, to: 900, q: 2, gain: 0.22 },
+        { freq: 140, dur: 0.2, type: 'triangle', gain: 0.14, slide: 1.4 },
+      ];
+    case 'bolt':
+      return [
+        { freq: 220, dur: 0.12, type: 'square', gain: 0.06, slide: 0.5 },
+        { kind: 'noise', dur: 0.14, filter: 'highpass', freq: 1800, gain: 0.12 },
+      ];
+    case 'shard':
+      return [{ freq: 2093, dur: 0.18, gain: 0.08, partials: BELL, slide: 1.2 }];
     case 'hit':
+      return [{ kind: 'noise', dur: 0.07, filter: 'bandpass', freq: 1200, q: 2, gain: 0.09 }];
+    case 'destroy':
+      // Masonry coming down.
       return [
-        { freq: 392 * pitch, dur: 0.5, gain: 0.3, partials: MARIMBA, attack: 0.003 },
-        { freq: 1568 * pitch, dur: 0.12, gain: 0.05, delay: 0.03 },
-        { kind: 'noise', dur: 0.1, filter: 'bandpass', freq: 900, to: 2600, q: 3, gain: 0.1 },
+        { kind: 'noise', dur: 0.8, filter: 'lowpass', freq: 1600, to: 120, gain: 0.34 },
+        { freq: 55, dur: 0.6, type: 'triangle', gain: 0.3, slide: 0.7 },
       ];
-    case 'miss':
-      return [
-        { freq: 220, dur: 0.3, gain: 0.18, partials: MARIMBA, slide: 0.8 },
-        { kind: 'noise', dur: 0.3, filter: 'lowpass', freq: 1800, to: 300, gain: 0.18 },
-      ];
-    case 'empty':
-      // A soft double knock.
+    case 'crown':
+      return [523, 784, 1047].map((freq, i) => ({
+        freq,
+        dur: 0.5,
+        gain: 0.18,
+        partials: BELL,
+        delay: i * 0.09,
+      }));
+    case 'invalid':
+      // A dull double knock: not here.
       return [
         { freq: 196, dur: 0.08, type: 'triangle', gain: 0.14 },
         { freq: 165, dur: 0.09, type: 'triangle', gain: 0.12, delay: 0.09 },
@@ -101,14 +161,17 @@ function voices(name: Sfx, pitch: number): Voice[] {
         { freq: 988, dur: 0.45, gain: 0.18, partials: BELL },
         { freq: 1319, dur: 0.6, gain: 0.18, partials: BELL, delay: 0.09 },
       ];
-    case 'continue':
-      return [392, 494, 588].map((freq, i) => ({
-        freq,
-        dur: 0.4,
-        gain: 0.2,
-        partials: MARIMBA,
-        delay: i * 0.08,
-      }));
+    case 'chest':
+      return [
+        { kind: 'noise', dur: 0.2, filter: 'lowpass', freq: 700, gain: 0.2 },
+        ...[659, 880, 1175].map((freq, i) => ({
+          freq,
+          dur: 0.5,
+          gain: 0.16,
+          partials: BELL,
+          delay: 0.15 + i * 0.08,
+        })),
+      ];
     case 'win':
       return [
         ...[523, 659, 784, 1047].map((freq, i) => ({
@@ -145,6 +208,7 @@ export class AudioService {
   private readonly reasons = new Set<SilenceReason>();
   private enabled = true;
   private readonly recent: number[] = [];
+  private readonly last = new Map<Sfx, number>();
   /** For tests: what would have been played. */
   readonly played: Sfx[] = [];
 
@@ -215,6 +279,8 @@ export class AudioService {
     const now = performance.now();
     while (this.recent.length > 0 && now - (this.recent[0] as number) > 1000) this.recent.shift();
     if (this.recent.length >= MAX_PER_SECOND) return;
+    if (now - (this.last.get(name) ?? -Infinity) < MERGE_MS) return;
+    this.last.set(name, now);
     this.recent.push(now);
     this.played.push(name);
     if (this.played.length > 50) this.played.shift();

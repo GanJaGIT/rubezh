@@ -47,6 +47,11 @@ export const cellIndex = (x: number, y: number): number => y * COLS + x;
 export const inField = (x: number, y: number): boolean => x >= 0 && x < COLS && y >= 0 && y < ROWS;
 export const isFort = (kind: BuildingKind): boolean => kind === 'keep' || kind === 'tower';
 
+const cardLevelOf = (setup: BattleSetup, side: Side, kind: BuildingKind): number =>
+  kind === 'keep' || kind === 'tower'
+    ? setup.playerLevels[side]
+    : (setup.cardLevels?.[side][kind] ?? 1);
+
 /** CRD-03: the level of a side's card (1 when the setup does not say). */
 export function cardLevel(s: BattleState, side: Side, card: CardId): number {
   return s.setup.cardLevels?.[side][card] ?? 1;
@@ -75,9 +80,16 @@ export function createBattle(setup: BattleSetup): BattleState {
     addBuilding(s, side, 'keep', toBoard(side, ...RULES.keepAt), level);
     for (const at of RULES.towersAt) addBuilding(s, side, 'tower', toBoard(side, ...at), level);
   }
+  // TUT: the tutorial's own field.
+  for (const p of setup.preset ?? []) {
+    let b = s.buildings.find((x) => x.x === p.x && x.y === p.y);
+    if (!b) b = addBuilding(s, p.side, p.kind, p, cardLevelOf(setup, p.side, p.kind));
+    if (p.hpPm !== undefined) b.hp = Math.max(1, Math.floor((b.maxHp * p.hpPm) / 1000));
+  }
   // GD-30: each deck is shuffled by the battle seed; the first cards are the hand.
   for (const side of SIDES) {
-    const deck = shuffle(s, [...setup.decks[side]]);
+    const deck =
+      setup.shuffle === false ? [...setup.decks[side]] : shuffle(s, [...setup.decks[side]]);
     s.hand[side] = deck.slice(0, RULES.handSize);
     s.deck[side] = deck.slice(RULES.handSize);
   }

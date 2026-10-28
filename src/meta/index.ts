@@ -10,3 +10,4 @@ export * from './chests';
 export * from './trophies';
 export * from './quests';
 export * from './shop';
+export * from './opponent';

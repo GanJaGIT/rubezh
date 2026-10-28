@@ -90,7 +90,7 @@ async function check(
   const cut = await page.evaluate(() =>
     Array.from(
       document.querySelectorAll<HTMLElement>(
-        '#ui button, .modal-title, .modal-text, .settings-label, .complete-coins, .hud-timer, .hud-crowns, .hud-opponent-kind, .pill, .menu-arena',
+        '#ui button, .modal-title, .modal-text, .settings-label, .complete-coins, .hud-timer, .hud-crowns, .hud-opponent-kind, .pill, .menu-arena, .hud-hint',
       ),
     )
       .filter((e) => e.offsetParent !== null)
@@ -180,6 +180,13 @@ for (const [w, h] of SIZES) {
       await check(page, 'surrender', w, h, lang, problems);
       await page.locator('[data-ui="surrender-no"]').click();
       await page.locator('[data-ui="pause-continue"]').click();
+
+      // TUT-01: the tutorial battle with its hint and the glowing card.
+      await page.evaluate(() => {
+        window.__game?.tutorial(1);
+        window.__game?.stopTime();
+      });
+      await check(page, 'tutorial', w, h, lang, problems);
 
       // The result windows (WIN-05).
       await quickWin(page);

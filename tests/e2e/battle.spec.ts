@@ -8,15 +8,15 @@ import { openGame, presetSave, played, quickLoss, quickWin, sim, state } from '.
  * with an in-game question, the result window and the gold kept after a reload.
  */
 
-test('UI-02, GD-11: the first launch opens a battle — 7×10 field, both forts, the clock runs', async ({
-  page,
-}) => {
-  await openGame(page);
+test('GD-11: a battle — 7×10 field, both forts, the clock runs', async ({ page }) => {
+  await presetSave(page, played(1));
+  await openGame(page, '?battle=1');
   const st = await state(page);
   expect([st.screen, st.phase, st.opponent]).toEqual(['battle', 'main', 'bot']);
   expect(st.field?.cell ?? 0).toBeGreaterThanOrEqual(40);
   const s = await sim(page);
   const where = s.buildings
+    .filter((b) => b.kind === 'keep' || b.kind === 'tower')
     .map((b) => `${String(b.side)}:${b.kind}@${String(b.x)},${String(b.y)}`)
     .sort();
   expect(where).toEqual([
@@ -97,18 +97,17 @@ test('ECO-02: a loss gives 5 gold; "To menu" opens the menu', async ({ page }) =
   expect((await state(page)).screen).toBe('menu');
 });
 
-test('GD-01, WIN-04: a battle runs 3:00 and the overtime minute, then ends (a draw here)', async ({
+test('GD-01, WIN-05: a battle against the bot runs to its end and the result window', async ({
   page,
 }) => {
+  await presetSave(page, played(1));
   await openGame(page, '?battle=1');
   await page.evaluate(() => {
     window.__game?.stopTime();
-    window.__game?.tick(3600);
+    window.__game?.tick(4800);
   });
-  await expect(page.locator('[data-ui="timer"]')).toHaveText('1:00');
-  await page.evaluate(() => window.__game?.tick(1200));
   await expect(page.locator('[data-ui="battle-result"]')).toBeVisible();
-  expect((await state(page)).winner).toBeNull();
+  expect((await state(page)).phase).toBe('ended');
 });
 
 test('SIM-40: the reference battles give the same hashes in the browser as in Node', async ({

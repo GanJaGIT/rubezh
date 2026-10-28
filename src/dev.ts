@@ -62,6 +62,8 @@ export interface DevHooks {
   resumeTime(): void;
   setSpeed(x: number): void;
   openBattle(setup?: BattleSetup): void;
+  /** TUT-01…TUT-03: a tutorial battle. */
+  tutorial(step: 1 | 2 | 3): void;
   /** SIM-40: the reference battles played in this browser (tests/fixtures/sim-hashes.json). */
   referenceHashes(seeds: number[]): number[];
   /** Ends the battle at once: the loser surrenders (a real action, UI-08). */
@@ -157,6 +159,7 @@ export function installDevHooks(d: DevDeps): void {
       if (app.session) app.session.speed = x;
     },
     openBattle: (setup) => app.startBattle(setup),
+    tutorial: (step) => app.startTutorial(step),
     referenceHashes: (seeds) => seeds.map((s) => referenceHash(s)),
     finish: (winner) => {
       const s = app.session;

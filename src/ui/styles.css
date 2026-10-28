@@ -9,28 +9,29 @@
  */
 
 :root {
-  --ink: #2b2118;
-  --ink-soft: #6b5a45;
-  --bg-top: #5d9b4f;
-  --bg-bottom: #2f6b45;
-  --bar-top: #8a5a33;
-  --bar: #6c4325;
-  --bar-edge: #3b2414;
-  --paper: #fffaf0;
-  --paper-2: #f6ead0;
-  --paper-edge: #d9bf8c;
-  --accent-light: #8fdc63;
-  --accent: #5bb944;
-  --accent-dark: #2f7a2c;
+  /* ART-01: dark stone and iron, embers and gold — not candy (owner, 2026-10-28). */
+  --ink: #1a1b1f;
+  --ink-soft: #4d4a44;
+  --bg-top: #2d3b2b;
+  --bg-bottom: #131913;
+  --bar-top: #3b4049;
+  --bar: #24272d;
+  --bar-edge: #0e0f12;
+  --paper: #f2ebdc;
+  --paper-2: #e2d6bd;
+  --paper-edge: #8f7b55;
+  --accent-light: #ffb34d;
+  --accent: #e8741c;
+  --accent-dark: #85380a;
   --gold-light: #ffe17a;
   --gold: #ffbf2e;
   --gold-dark: #b8740c;
-  --ribbon-light: #ffb170;
-  --ribbon: #f07a3c;
-  --ribbon-dark: #a2401f;
-  --grey-light: #e3e1ec;
-  --grey: #b4b0c6;
-  --grey-dark: #76718c;
+  --ribbon-light: #ff8a6b;
+  --ribbon: #c8322a;
+  --ribbon-dark: #6e1612;
+  --grey-light: #9aa0a8;
+  --grey: #6c727b;
+  --grey-dark: #3a3e45;
   --powder-light: #ffc26b;
   --powder: #f07a1e;
   --press: 4px;
@@ -167,7 +168,7 @@
   --face: var(--accent);
   --edge: var(--accent-dark);
   --text: #ffffff;
-  text-shadow: 0 2px 0 rgba(31, 82, 29, 0.8);
+  text-shadow: 0 2px 0 rgba(70, 25, 4, 0.8);
 }
 
 .modal-button:disabled,
@@ -335,29 +336,242 @@
   box-shadow: inset 0 0 0 3px var(--bar-edge);
 }
 
-.hud-slot {
+.hud-card {
+  position: relative;
   flex: 0 0 auto;
   width: 64px;
   height: 80px;
-  border: 3px dashed rgba(255, 255, 255, 0.35);
-  border-radius: 12px;
+  padding: 0;
+  border: 3px solid #0e0f12;
+  border-radius: 10px;
+  background: linear-gradient(#4a505a, #2a2e35);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.18),
+    0 3px 0 #0e0f12;
+  cursor: grab;
+  touch-action: none;
+  transition: transform 0.08s ease-out;
 }
 
-.hud-hand.column .hud-slot {
+.hud-card-art {
+  position: absolute;
+  inset: 2px 4px 20px;
+  width: calc(100% - 8px);
+  height: calc(100% - 22px);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* INP-03: the cost, and the seconds until there is enough powder. */
+.hud-card-cost {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 4px;
+  border: 2px solid #0e0f12;
+  border-radius: 11px;
+  background: linear-gradient(var(--powder-light), var(--powder));
+  color: #1a0d02;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 18px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hud-card-wait {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+  text-shadow: 0 2px 4px #000000;
+  pointer-events: none;
+}
+
+.hud-card.dim .hud-card-art {
+  opacity: 0.35;
+  filter: grayscale(0.8);
+}
+
+.hud-card.dim {
+  cursor: default;
+}
+
+/* INP-02: the chosen card is lifted; TUT-01: the card the tutorial points at glows. */
+.hud-card.selected {
+  border-color: var(--accent-light);
+  transform: translateY(-10px);
+}
+
+.hud-card.hinted {
+  border-color: var(--gold);
+  animation: card-hint 0.9s ease-in-out infinite;
+}
+
+/* A light scale on the spot: a jumping hint makes the player miss (LESSONS §4). */
+@keyframes card-hint {
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+#ui:has(.modal-backdrop) .hud-card.hinted {
+  animation-play-state: paused;
+}
+
+.hud-card.next {
+  width: 40px;
+  height: 50px;
+  opacity: 0.75;
+  cursor: default;
+}
+
+.hud-card.next .hud-card-art {
+  inset: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+}
+
+.hud-hand.column .hud-card {
   width: 64px;
   height: auto;
   flex: 1 1 0;
   max-height: 80px;
 }
 
-.hud-slot.next {
-  width: 40px;
-  height: 50px;
-}
-
-.hud-hand.column .hud-slot.next {
+.hud-hand.column .hud-card.next {
   width: 40px;
   flex: 0.6 1 0;
+}
+
+/* INP-01: the card in the finger. */
+.drag-card {
+  left: 0;
+  top: 0;
+  z-index: 30;
+  width: 64px;
+  height: 64px;
+  pointer-events: none !important;
+  opacity: 0.9;
+}
+
+.drag-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* FX-05: big words over the field and the last seconds. */
+.hud-banner,
+.hud-countdown {
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  text-align: center;
+  pointer-events: none !important;
+  text-shadow:
+    0 3px 0 #0e0f12,
+    0 0 18px rgba(232, 116, 28, 0.8);
+}
+
+.hud-banner {
+  font-size: 30px;
+}
+
+.hud-banner.pop {
+  animation: banner-pop 1.8s ease-out both;
+}
+
+@keyframes banner-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.hud-countdown {
+  font-size: 72px;
+  opacity: 0.85;
+}
+
+.hud-crown-blue.pop,
+.hud-crown-red.pop {
+  display: inline-block;
+  animation: crown-pop 0.6s ease-out;
+}
+
+@keyframes crown-pop {
+  40% {
+    transform: scale(1.8);
+  }
+}
+
+/* INP-04: the plate of a building. */
+.hud-plate {
+  z-index: 7;
+  padding: 6px 10px;
+  border: 2px solid #0e0f12;
+  border-radius: 10px;
+  background: rgba(20, 22, 27, 0.92);
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.3;
+  pointer-events: none !important;
+}
+
+.hud-plate-title {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.hud-plate-side {
+  font-weight: 800;
+}
+
+.hud-plate-side.blue {
+  color: #9cc4ff;
+}
+
+.hud-plate-side.red {
+  color: #ffaaa2;
+}
+
+/* TUT-01: the hint line. */
+.hud-hint {
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  background: rgba(20, 22, 27, 0.9);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+  pointer-events: none !important;
 }
 
 /* ------------------------------------------------------------------ the menu (UI-02, UI-03) */
